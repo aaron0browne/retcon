@@ -24,6 +24,7 @@ homebrew_cask_apps:
   - 'istat-menus'
   - 'iterm2'
   - 'java'
+  - 'karabiner-elements'  # Keyboard remapping
   - 'licecap'             # Animated screen capture
   - 'limechat'            # IRC client
   - 'macvim'
@@ -31,7 +32,6 @@ homebrew_cask_apps:
   - 'paintbrush'
   - 'postgres'
   - 'rstudio'
-  - 'seil'
   - 'skitch'              # Graphical annotation
   - 'slack'
   - 'spectacle'           # Window management
