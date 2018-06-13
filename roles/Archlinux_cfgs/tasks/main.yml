@@ -1,0 +1,12 @@
+---
+- name: 'Install fonts'
+  copy:
+    src: '{{ item }}'
+    dest: '~/.fonts/'
+    force: true
+    remote_src: true
+  with_fileglob:
+    - '~/.yadr/fonts/*'
+
+- name: 'Update font cache'
+  command: 'fc-cache -vf ~/.fonts'

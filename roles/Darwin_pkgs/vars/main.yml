@@ -1,0 +1,96 @@
+---
+homebrew_upgrade_all_packages: yes
+homebrew_taps:
+  - 'homebrew/core'
+  - 'caskroom/cask'
+  - 'homebrew/services'   # Service lifecycle management
+  - 'homebrew/bundle'     # Installation via Brewfile
+  - 'homebrew/livecheck'  # New version check via .brew_livecheck_watch
+  - 'caskroom/fonts'
+
+homebrew_cask_apps:
+  - 'adobe-acrobat-reader'
+  - 'balsamiq-mockups'
+  - 'citrix-receiver'     # Remote desktop/application
+  - 'docker'
+  - 'deluge'              # Torrent client
+  - 'dropbox'
+  - 'emacs'
+  - 'evernote'
+  - 'firefox'
+  - 'flux'                # Screen temperature adjustment
+  - 'google-chrome'
+  - 'google-backup-and-sync'
+  - 'istat-menus'
+  - 'iterm2'
+  - 'java'
+  - 'licecap'             # Animated screen capture
+  - 'limechat'            # IRC client
+  - 'macvim'
+  - 'omnigraffle'
+  - 'paintbrush'
+  - 'postgres'
+  - 'rstudio'
+  - 'seil'
+  - 'skitch'              # Graphical annotation
+  - 'slack'
+  - 'spectacle'           # Window management
+  - 'sqlpro-for-postgres' # Postgres GUI
+  - 'vagrant'
+  - 'virtualbox'
+  - 'vlc'
+  - 'xquartz'             # X11 for OSX
+
+homebrew_installed_packages:
+  - 'ack'
+  - 'autoconf'            # Configuration script builder
+  - 'awk'
+  - 'awscli'
+  - 'caddy'               # Web server
+  - 'ctags'               # Creates index/tag files from source code
+  - 'coreutils'           # Updated GNU core utilities
+  - 'cscope'              # Indexing and search for C/C++ source code
+  - 'dep'
+  - 'dockutil'            # Manages OSX dock
+  - 'findutils'           # File finding utilities
+  - 'gettext'             # Internationalization
+  - 'git'
+  - 'git-lfs'
+  - name: 'global'        # GNU index/tag file creation from source code
+    install_options: '--with-pygments --with-ctags'
+  - name: 'gnu-sed'
+    install_options: '--with-default-names'
+  - 'go'
+  - 'gnupg'
+  - 'gpg'
+  - 'grep'
+  - 'gzip'
+  - 'httpie'              # User-friendly curl replacement
+  - 'hub'                 # Add github commands to git
+  - 'hugo'                # Static site generator
+  - 'jq'                  # JSON parser
+  - 'libyaml'
+  - 'mcrypt'              # Replacement for old crypt package
+  - 'moreutils'           # Extra GNU utilities
+  - 'mr'                  # Multiple repos
+  - 'nmap'                # Port scanning
+  - 'node'
+  - 'openssh'
+  - 'packer'
+  - 'pandoc'              # Document conversion
+  - 'protobuf'
+  - 'pwgen'
+  - 'pyenv'
+  - 'pyenv-virtualenv'
+  - 'readline'
+  - 'ruby'
+  - 'sqlite'
+  - 'ssh-copy-id'
+  - 'terraform'
+  - 'tmux'
+  - 'vcsh'
+  - name: 'vim'
+    install_options: '--with-override-system-vi --with-python3'
+  - name: 'wget'
+    install_options: '--with-iri'
+  - 'zsh'

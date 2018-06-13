@@ -1,0 +1,9 @@
+---
+- hosts: 'all'
+  tasks:
+    - import_role:
+        name: '{{ ansible_os_family }}_pkgs'
+    - import_role:
+        name: 'common'
+    - import_role:
+        name: '{{ ansible_os_family }}_cfgs'

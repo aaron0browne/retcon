@@ -1,0 +1,268 @@
+---
+- name: 'Remove all items from osx dock'
+  shell: 'dockutil --remove all'
+
+- name: 'Add desired apps to osx dock'
+  shell: 'dockutil --add {{ item }}'
+  with_items: dockapps_to_persist
+
+- name: 'Install fonts'
+  copy:
+    src: '{{ item }}'
+    dest: '~/Library/Fonts/'
+    force: true
+    remote_src: true
+  with_fileglob:
+    - '~/.yadr/fonts/*'
+
+- name: 'Install iTerm2 solarized themes'
+  command: '/usr/libexec/PlistBuddy -c {{ item }} ~/Library/Preferences/com.googlecode.iterm2.plist'
+  with_items:
+    - "\"Add :'Custom Color Presets':'Solarized Light' dict\""
+    - "\"Merge 'iTerm2/Solarized Light.itermcolors' :'Custom Color Presets':'Solarized Light'\""
+    - "\"Add :'Custom Color Presets':'Solarized Dark' dict\""
+    - "\"Merge 'iTerm2/Solarized Dark.itermcolors' :'Custom Color Presets':'Solarized Dark'\""
+
+- name: 'Set standby delay to 24 hours (default is 1 hour)'
+  command: 'pmset -a standbydelay 86400'
+  become: true
+
+- name: 'Disable the sound effects on boot'
+  command: 'nvram SystemAudioVolume=" "'
+  become: true
+
+- name: 'Disable transparency in the menu bar and elsewhere in Yosemite'
+  osx_defaults:
+    domain: 'com.apple.universalaccess'
+    key: 'reduceTransparency'
+    type: 'bool'
+    value: true
+    state: 'present'
+
+- name: 'Set sidebar icon size to medium'
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'NSTableViewDefaultSizeMode'
+    type: 'int'
+    value: 2
+    state: 'present'
+
+- name: 'Disable over-the-top focus ring animation'
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'NSUseAnimatedFocusRing'
+    type: 'bool'
+    value: false
+    state: 'present'
+
+- name: 'Increase window resize speed for Cocoa applications'
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'NSWindowResizeTime'
+    type: 'float'
+    value: 0.001
+    state: 'present'
+
+- name: 'Expand save panel by default 1'
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'NSNavPanelExpandedStateForSaveMode'
+    type: 'bool'
+    value: true
+    state: 'present'
+
+- name: 'Expand save panel by default 2'
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'NSNavPanelExpandedStateForSaveMode2'
+    type: 'bool'
+    value: true
+    state: 'present'
+
+- name: 'Expand print panel by default 1'
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'PMPrintingExpandedStateForPrint'
+    type: 'bool'
+    value: true
+    state: 'present'
+
+- name: 'Expand save panel by default 2'
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'PMPrintingExpandedStateForPrint2'
+    type: 'bool'
+    value: true
+    state: 'present'
+
+- name: 'Save to disk (not to iCloud) by default'
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'NSDocumentSaveNewDocumentsToCloud'
+    type: 'bool'
+    value: false
+    state: 'present'
+
+- name: 'Automatically quit printer app once the print jobs complete'
+  osx_defaults:
+    domain: 'com.apple.print.PrintingPrefs'
+    key: '"Quit When Finished"'
+    type: 'bool'
+    value: true
+    state: 'present'
+
+- name: 'Disable the "Are you sure you want to open this application?" dialog'
+  osx_defaults:
+    domain: 'com.apple.LaunchServices'
+    key: 'LSQuarantine'
+    type: 'bool'
+    value: false
+    state: 'present'
+
+- name: 'Remove duplicates in the "Open With" menu (also see `lscleanup` alias)'
+  command: '/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
+
+- name: 'Display ASCII control characters using caret notation in standard text views'
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'NSTextShowsControlCharacters'
+    type: 'bool'
+    value: true
+    state: 'present'
+
+- name: 'Disable resume system-wide'
+  osx_defaults:
+    domain: 'com.apple.systempreferences'
+    key: 'NSQuitAlwaysKeepsWindows'
+    type: 'bool'
+    value: false
+    state: 'present'
+
+- name: 'Disable automatic termination of inactive apps'
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'NSDisableAutomaticTermination'
+    type: 'bool'
+    value: true
+    state: 'present'
+
+- name: 'Disable the crash reporter'
+  osx_defaults:
+    domain: 'com.apple.CrashReporter'
+    key: 'DialogType'
+    type: 'string'
+    value: '"none"'
+    state: 'present'
+
+- name: 'Set Help Viewer windows to non-floating mode'
+  osx_defaults:
+    domain: 'com.apple.helpviewer'
+    key: 'DevMode'
+    type: 'bool'
+    value: true
+    state: 'present'
+
+- name: 'Reveal IP address, hostname, OS version, etc. when clicking the clock in the login window'
+  osx_defaults:
+    domain: '/Library/Preferences/com.apple.loginwindow'
+    key: 'AdminHostInfo'
+    type: 'string'
+    value: 'HostName'
+    state: 'present'
+  become: true
+
+- name: 'Restart automatically if the computer freezes'
+  command: 'systemsetup -setrestartfreeze on'
+  become: true
+
+- name: 'Never go into computer sleep mode'
+  command: 'systemsetup -setcomputersleep Off'
+  become: true
+
+- name: 'Disable Notification Center and remove the menu bar icon'
+  command: 'launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null'
+
+- name: "Disable automatic capitalization as it's annoying when typing code"
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'NSAutomaticCapitalizationEnabled'
+    type: 'bool'
+    value: false
+    state: 'present'
+
+- name: "Disable smart dashes as they're annoying when typing code"
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'NSAutomaticDashSubstitutionEnabled'
+    type: 'bool'
+    value: false
+    state: 'present'
+
+- name: "Disable automatic period substitution as it's annoying when typing code"
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'NSAutomaticPeriodSubstitutionEnabled'
+    type: 'bool'
+    value: false
+    state: 'present'
+
+- name: "Disable smart quotes as they're annoying when typing code"
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'NSAutomaticQuoteSubstitutionEnabled'
+    type: 'bool'
+    value: false
+    state: 'present'
+
+- name: 'Disable auto-correct'
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'NSAutomaticSpellingCorrectionEnabled'
+    type: 'bool'
+    value: false
+    state: 'present'
+
+- name: 'Disable hibernation (speeds up entering sleep mode)'
+  command: 'pmset -a hibernatemode 0'
+  become: true
+
+- name: 'Remove the sleep image file to save disk space'
+  file:
+    path: '/private/var/vm/sleepimage'
+    state: 'absent'
+  become: true
+
+- name: 'Create a zero-byte sleep image file'
+  file:
+    path: '/private/var/vm/sleepimage'
+    state: 'touch'
+  become: true
+
+- name: 'Make sure the sleep image file cannot be rewritten'
+  command: 'chflags uimmutable /private/var/vm/sleepimage'
+  become: true
+
+- name: 'Enable bluetooth trackpad clicking'
+  osx_defaults:
+    domain: 'com.apple.driver.AppleBluetoothMultitouch.trackpad'
+    key: 'Clicking'
+    type: 'bool'
+    value: true
+    state: 'present'
+
+- name: 'Enable tap to click'
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'com.apple.mouse.tapBehavior'
+    type: 'int'
+    value: 1
+    state: 'present'
+
+- name: 'Enable tap to click for the login screen'
+  osx_defaults:
+    host: 'currentHost'
+    domain: 'NSGlobalDomain'
+    key: 'com.apple.mouse.tapBehavior'
+    type: 'int'
+    value: 1
+    state: 'present'

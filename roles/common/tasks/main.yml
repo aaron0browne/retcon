@@ -1,0 +1,86 @@
+---
+- name: 'Clone dotfiles repo'
+  git:
+    repo: 'https://github.com/aaron0browne/dotfiles.git'
+    dest: '~/.yadr'
+    accept_hostkey: true
+
+- name: 'Update dotfiles repo'
+  command: 'git submodule update --init --recursive'
+  args:
+    chdir: '~/.yadr'
+
+- name: 'Symlink git, tmux, rc, and vim dotfiles into home directory'
+  file:
+    src: '~/.yadr/{{ item }}'
+    dest: '~/.{{ item | basename }}'
+    state: 'link'
+    force: true
+  with_items:
+    - 'git/gitconfig'
+    - 'git/gitignore'
+    - 'tmux/tmux.conf'
+    - 'vimify/editrc'
+    - 'vimify/inputrc'
+    - 'vimrc'
+    - 'vim'
+
+- name: 'Clone vundle repo'
+  git:
+    repo: 'https://github.com/gmarik/vundle.git'
+    dest: '~/.yadr/vim/bundle/vundle'
+    accept_hostkey: true
+
+- name: 'Update vundle'
+  command: 'vim --noplugin -u ~/.vim/vundles.vim -N "+set hidden" "+syntax on" +BundleClean +BundleInstall! +qall'
+
+- name: 'Symlink dotfiles into home directory'
+  file:
+    src: '~/.yadr/{{ item }}'
+    dest: '~/.{{ item | basename }}'
+    state: 'link'
+    force: true
+  with_items:
+    - 'git/gitconfig'
+    - 'git/gitignore'
+    - 'tmux/tmux.conf'
+    - 'vimify/editrc'
+    - 'vimify/inputrc'
+    - 'vimrc'
+    - 'vim'
+
+- name: 'Symlink prezto into home directory'
+  file:
+    src: '~/.yadr/zsh/prezto'
+    dest: '~/.zprezto'
+    state: 'link'
+    force: true
+
+- name: 'Symlink prezto dotfiles into home directory'
+  file:
+    src: '~/.yadr/zsh/{{ item }}'
+    dest: '~/.{{ item | basename }}'
+    state: 'link'
+    force: true
+  with_items:
+    - 'prezto/runcoms/zlogin'
+    - 'prezto/runcoms/zlogout'
+    - 'prezto/runcoms/zprofile'
+    - 'prezto/runcoms/zshenv'
+    - 'prezto/runcoms/zshrc'
+    - 'prezto-override/zpreztorc'
+
+- name: "Modify zshrc to load yadr's zsh extensions"
+  lineinfile:
+    path: '~/.zshrc'
+    line: 'for config_file ($HOME/.yadr/zsh/*.zsh) source $config_file'
+    state: 'present'
+
+- name: 'Add zsh to standard shell list'
+  lineinfile:
+    path: '/private/etc/shells'
+    line: '/usr/local/bin/zsh'
+    state: 'present'
+
+- name: 'Set zsh as default shell'
+  command: 'chsh -s /usr/local/bin/zsh'

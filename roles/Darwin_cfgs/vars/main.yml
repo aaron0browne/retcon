@@ -1,0 +1,7 @@
+---
+dockapps_to_persist:
+  - '/Applications/Firefox.app'
+  - '/Applications/Emacs.app'
+  - '/Applications/iTerm.app'
+  - '/Applications/Microsoft Office 2011/Microsoft Outlook.app'
+  - '/Applications/Utilities/Activity Monitor.app'
