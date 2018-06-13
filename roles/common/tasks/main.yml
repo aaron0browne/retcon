@@ -74,6 +74,7 @@
     path: '/private/etc/shells'
     line: '/usr/local/bin/zsh'
     state: 'present'
+  become: yes
 
 - name: 'Set zsh as default shell'
   command: 'chsh -s /usr/local/bin/zsh'
