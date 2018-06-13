@@ -2,11 +2,11 @@
 homebrew_upgrade_all_packages: yes
 homebrew_taps:
   - 'homebrew/core'
-  - 'caskroom/cask'
+  - 'homebrew/cask'
   - 'homebrew/services'   # Service lifecycle management
   - 'homebrew/bundle'     # Installation via Brewfile
   - 'homebrew/livecheck'  # New version check via .brew_livecheck_watch
-  - 'caskroom/fonts'
+  - 'homebrew/cask-fonts'
 
 homebrew_cask_apps:
   - 'adobe-acrobat-reader'
