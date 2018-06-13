@@ -4,7 +4,7 @@
 
 - name: 'Add desired apps to osx dock'
   shell: 'dockutil --add {{ item }}'
-  with_items: dockapps_to_persist
+  loop: '{{ dockapps_to_persist|flatten }}'
 
 - name: 'Install fonts'
   copy:
@@ -12,16 +12,15 @@
     dest: '~/Library/Fonts/'
     force: true
     remote_src: true
-  with_fileglob:
-    - '~/.yadr/fonts/*'
+  loop: '{{ lookup('fileglob', '~/.yadr/fonts/*') }}'
 
 - name: 'Install iTerm2 solarized themes'
   command: '/usr/libexec/PlistBuddy -c {{ item }} ~/Library/Preferences/com.googlecode.iterm2.plist'
-  with_items:
+  loop:
     - "\"Add :'Custom Color Presets':'Solarized Light' dict\""
-    - "\"Merge 'iTerm2/Solarized Light.itermcolors' :'Custom Color Presets':'Solarized Light'\""
+    - "\"Merge '~/.yadr/iTerm2/Solarized Light.itermcolors' :'Custom Color Presets':'Solarized Light'\""
     - "\"Add :'Custom Color Presets':'Solarized Dark' dict\""
-    - "\"Merge 'iTerm2/Solarized Dark.itermcolors' :'Custom Color Presets':'Solarized Dark'\""
+    - "\"Merge '~/.yadr/iTerm2/Solarized Dark.itermcolors' :'Custom Color Presets':'Solarized Dark'\""
 
 - name: 'Set standby delay to 24 hours (default is 1 hour)'
   command: 'pmset -a standbydelay 86400'
