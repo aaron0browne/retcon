@@ -12,23 +12,15 @@
     dest: '~/Library/Fonts/'
     force: true
     remote_src: true
-  loop: '{{ lookup('fileglob', '~/.yadr/fonts/*') }}'
-
-- name: 'Install iTerm2 solarized themes'
-  command: '/usr/libexec/PlistBuddy -c {{ item }} ~/Library/Preferences/com.googlecode.iterm2.plist'
-  loop:
-    - "\"Add :'Custom Color Presets':'Solarized Light' dict\""
-    - "\"Merge '~/.yadr/iTerm2/Solarized Light.itermcolors' :'Custom Color Presets':'Solarized Light'\""
-    - "\"Add :'Custom Color Presets':'Solarized Dark' dict\""
-    - "\"Merge '~/.yadr/iTerm2/Solarized Dark.itermcolors' :'Custom Color Presets':'Solarized Dark'\""
+  loop: '{{ query("fileglob", "~/.yadr/fonts/*") }}'
 
 - name: 'Set standby delay to 24 hours (default is 1 hour)'
   command: 'pmset -a standbydelay 86400'
-  become: true
+  become: yes
 
 - name: 'Disable the sound effects on boot'
   command: 'nvram SystemAudioVolume=" "'
-  become: true
+  become: yes
 
 - name: 'Disable transparency in the menu bar and elsewhere in Yosemite'
   osx_defaults:
@@ -168,15 +160,15 @@
     type: 'string'
     value: 'HostName'
     state: 'present'
-  become: true
+  become: yes
 
 - name: 'Restart automatically if the computer freezes'
   command: 'systemsetup -setrestartfreeze on'
-  become: true
+  become: yes
 
 - name: 'Never go into computer sleep mode'
   command: 'systemsetup -setcomputersleep Off'
-  become: true
+  become: yes
 
 - name: 'Disable Notification Center and remove the menu bar icon'
   command: 'launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null'
@@ -223,30 +215,14 @@
 
 - name: 'Disable hibernation (speeds up entering sleep mode)'
   command: 'pmset -a hibernatemode 0'
-  become: true
-
-- name: 'Remove the sleep image file to save disk space'
-  file:
-    path: '/private/var/vm/sleepimage'
-    state: 'absent'
-  become: true
-
-- name: 'Create a zero-byte sleep image file'
-  file:
-    path: '/private/var/vm/sleepimage'
-    state: 'touch'
-  become: true
-
-- name: 'Make sure the sleep image file cannot be rewritten'
-  command: 'chflags uimmutable /private/var/vm/sleepimage'
-  become: true
+  become: yes
 
 - name: 'Enable bluetooth trackpad clicking'
   osx_defaults:
     domain: 'com.apple.driver.AppleBluetoothMultitouch.trackpad'
     key: 'Clicking'
-    type: 'bool'
-    value: true
+    type: 'int'
+    value: 1
     state: 'present'
 
 - name: 'Enable tap to click'
