@@ -20,6 +20,7 @@ homebrew_cask_apps:
   - 'firefox'
   - 'flux'                # Screen temperature adjustment
   - 'google-chrome'
+  - 'google-cloud-sdk'
   - 'google-backup-and-sync'
   - 'istat-menus'
   - 'iterm2'
@@ -38,6 +39,7 @@ homebrew_cask_apps:
   - 'sqlpro-for-postgres' # Postgres GUI
   - 'vagrant'
   - 'virtualbox'
+  - 'visual-studio-code'
   - 'vlc'
   - 'xquartz'             # X11 for OSX
 
@@ -52,6 +54,7 @@ homebrew_installed_packages:
   - 'cscope'              # Indexing and search for C/C++ source code
   - 'dep'
   - 'dockutil'            # Manages OSX dock
+  - 'fasd'
   - 'findutils'           # File finding utilities
   - 'gettext'             # Internationalization
   - 'git'
@@ -78,6 +81,8 @@ homebrew_installed_packages:
   - 'openssh'
   - 'packer'
   - 'pandoc'              # Document conversion
+  - 'pass'
+  - 'pinentry-mac'
   - 'protobuf'
   - 'pwgen'
   - 'pyenv'

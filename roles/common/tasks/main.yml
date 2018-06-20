@@ -1,80 +1,68 @@
 ---
-- name: 'Clone dotfiles repo'
-  git:
-    repo: 'https://github.com/aaron0browne/dotfiles.git'
-    dest: '~/.yadr'
-    accept_hostkey: true
-
-- name: 'Update dotfiles repo'
-  command: 'git submodule update --init --recursive'
-  args:
-    chdir: '~/.yadr'
-
-- name: 'Symlink dotfiles into home directory'
+- name: 'Create directories.'
   file:
-    src: '~/.yadr/{{ item }}'
-    dest: '~/.{{ item | basename }}'
-    state: 'link'
-    force: true
-  with_items:
-    - 'emacs/spacemacs'
-    - 'git/gitconfig'
-    - 'git/gitignore'
-    - 'tmux/tmux.conf'
-    - 'vimify/editrc'
-    - 'vimify/inputrc'
-    - 'vimrc'
-    - 'vim'
+    path: '{{ item }}'
+    state: 'directory'
+  loop: '{{ dirs }}'
 
-- name: 'Clone spacemacs repo'
-  git:
-    repo: 'https://github.com/syl20bnr/spacemacs.git'
-    dest: '~/.emacs.d'
-    version: 'develop'
-    accept_hostkey: true
-
-- name: 'Clone vundle repo'
-  git:
-    repo: 'https://github.com/gmarik/vundle.git'
-    dest: '~/.yadr/vim/bundle/vundle'
-    accept_hostkey: true
-
-- name: 'Update vundle'
-  command: 'vim --noplugin -u ~/.vim/vundles.vim -N "+set hidden" "+syntax on" +BundleClean +BundleInstall! +qall'
-
-- name: 'Symlink prezto into home directory'
+- name: 'Place dotfiles.'
   file:
-    src: '~/.yadr/zsh/prezto'
-    dest: '~/.zprezto'
+    path: '{{ item.path }}'
+    src: '{{ item.src }}'
     state: 'link'
-    force: true
+  loop: '{{ dotfiles }}'
 
-- name: 'Symlink prezto dotfiles into home directory'
+- name: 'Start gpg-agent.'
+  command: 'gpg-connect-agent /bye'
+
+- name: 'Clone git repos.'
+  git:
+    dest: '{{ item.dest }}'
+    repo: '{{ item.repo }}'
+    version: '{{ item.version | default(omit) }}'
+    force: '{{ item.force | default(omit) }}'
+    accept_hostkey: 'yes'
+  ignore_errors: '{{ item.ignore_errors | default(omit) }}'
+  loop: '{{ git_repos }}'
+
+- name: 'Place dotfiles from git repos.'
   file:
-    src: '~/.yadr/zsh/{{ item }}'
-    dest: '~/.{{ item | basename }}'
+    path: '{{ item.path }}'
+    src: '{{ item.src }}'
     state: 'link'
-    force: true
-  with_items:
-    - 'prezto/runcoms/zlogin'
-    - 'prezto/runcoms/zlogout'
-    - 'prezto/runcoms/zprofile'
-    - 'prezto/runcoms/zshenv'
-    - 'prezto/runcoms/zshrc'
-    - 'prezto-override/zpreztorc'
+  loop: '{{ git_dotfiles }}'
 
-- name: "Modify zshrc to load yadr's zsh extensions"
+- name: 'Install pip packages.'
+  pip:
+    name: '{{ item.name }}'
+  ignore_errors: '{{ item.ignore_errors | default(omit) }}'
+  loop: '{{ pip_pkgs }}'
+
+- name: "Modify zshrc to load zsh extensions."
   lineinfile:
     path: '~/.zshrc'
-    line: 'for config_file ($HOME/.yadr/zsh/*.zsh) source $config_file'
+    line: 'for config_file (~/.zsh/*.zsh) source $config_file'
     state: 'present'
 
-- name: 'Add zsh to standard shell list'
+- name: 'Add zsh to standard shell list.'
   lineinfile:
     path: '/private/etc/shells'
     line: '/usr/local/bin/zsh'
     state: 'present'
-  become: yes
+  become: 'yes'
 
-- name: 'Set zsh as default shell'
+- name: 'Set zsh as default shell.'
   command: 'chsh -s /usr/local/bin/zsh'
+
+- name: 'Update vim packages.'
+  command: 'vim --noplugin -u ~/.vim/vundles.vim -N "+set hidden" "+syntax on" +BundleClean! +BundleInstall! +qall'
+
+- name: 'Sync AWS directories.'
+  command: "aws {{ item.profile | ternary([' --profile', item.profile] | join('='), '') }} s3 sync {{ item.src }} {{ item.dest }}"
+  ignore_errors: '{{ item.ignore_errors | default(omit) }}'
+  loop: '{{ aws_s3_syncs }}'
+
+- name: 'Sync GCP storage directories.'
+  command: 'gsutil -m rsync -r {{ item.src }} {{ item.dest }}'
+  ignore_errors: '{{ item.ignore_errors | default(omit) }}'
+  loop: '{{ gcp_storage_syncs }}'

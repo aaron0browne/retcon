@@ -1,243 +1,89 @@
 ---
+- name: 'Disable the sound effects on boot'
+  command: 'nvram SystemAudioVolume=" "'
+  become: yes
+
+- name: 'Remove duplicates in the "Open With" menu (also see `lscleanup` alias)'
+  command: '/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
+
+- name: 'Show the ~/Library folder.'
+  command: 'chflags nohidden ~/Library'
+
+- name: 'Show the /Volumes folder.'
+  command: 'chflags nohidden /Volumes'
+  become: 'yes'
+
+- name: 'Get font file names.'
+  command: 'find ~/.fonts \( -name "*.[ot]tf" -or -name "*.pcf.gz" \) -type f'
+  register: 'font_files'
+
+- name: 'Install fonts.'
+  command: 'cp "{{ item }}" ~/Library/Fonts'
+  loop: '{{ font_files.stdout_lines }}'
+
+- name: 'Configure power management settings.'
+  command: 'pmset -a {{ item.setting }} {{ item.value }}'
+  become: yes
+  loop:
+    # Set standby delay to 24 hours.
+    - setting: 'standbydelay'
+      value: '86400'
+    # Turn hibernate off.
+    - setting: 'hibernatemode'
+      value: '0'
+
+- name: 'Set systemsetup parameters.'
+  command: 'systemsetup -{{ item.param }} {{ item.value }}'
+  become: yes
+  loop:
+    # Restart automatically if the system freezes.
+    - param: 'setrestartfreeze'
+      value: 'on'
+    # Never go into computer sleep mode.
+    - param: 'setcomputersleep'
+      value: 'off'
+
+- name: 'Disable system services.'
+  command: 'launchctl unload -w {{ item }} 2> /dev/null'
+  loop:
+    - '/System/Library/LaunchAgents/com.apple.notificationcenterui.plist'
+    - '/System/Library/LaunchAgents/com.openssh.ssh-agent.plist'
+
+- name: 'Set osx defaults.'
+  osx_defaults:
+    host: '{{ item.host | default(omit) }}'
+    domain: '{{ item.domain | default(omit) }}'
+    key: '{{ item.key }}'
+    type: '{{ item.type }}'
+    value: '{{ item.value }}'
+    state: '{{ item.state | default("present") }}'
+  become: '{{ item.become | default(omit) }}'
+  loop: '{{ osx_defaults }}'
+
+- name: 'Expand the following File Info panes: "General", "Open with", and "Sharing & Permissions".'
+  command: 'defaults write com.apple.finder FXInfoPanesExpanded -dict General -bool true OpenWith -bool true Privileges -bool true'
+
+- name: 'Delete plist entries.'
+  command: '/usr/libexec/PlistBuddy -c "Delete {{ item.key }}" {{ item.plist }}'
+  ignore_errors: 'yes'
+  loop: '{{ plist_entries }}'
+
+- name: 'Add plist entries.'
+  command: '/usr/libexec/PlistBuddy -c "Add {{ item.key }} {{ item.type }} {{ item.value }}" {{ item.plist }}'
+  loop: '{{ plist_entries }}'
+
+- name: "Modify zshrc to load google cloud sdk."
+  lineinfile:
+    path: '~/.zshrc'
+    line: 'source {{ item }}'
+    state: 'present'
+  loop:
+    - '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+    - '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+
 - name: 'Remove all items from osx dock'
   shell: 'dockutil --remove all'
 
 - name: 'Add desired apps to osx dock'
   shell: 'dockutil --add {{ item }}'
-  loop: '{{ dockapps_to_persist|flatten }}'
-
-- name: 'Install fonts'
-  copy:
-    src: '{{ item }}'
-    dest: '~/Library/Fonts/'
-    force: true
-    remote_src: true
-  loop: '{{ query("fileglob", "~/.yadr/fonts/*") }}'
-
-- name: 'Set standby delay to 24 hours (default is 1 hour)'
-  command: 'pmset -a standbydelay 86400'
-  become: yes
-
-- name: 'Disable the sound effects on boot'
-  command: 'nvram SystemAudioVolume=" "'
-  become: yes
-
-- name: 'Disable transparency in the menu bar and elsewhere in Yosemite'
-  osx_defaults:
-    domain: 'com.apple.universalaccess'
-    key: 'reduceTransparency'
-    type: 'bool'
-    value: true
-    state: 'present'
-
-- name: 'Set sidebar icon size to medium'
-  osx_defaults:
-    domain: 'NSGlobalDomain'
-    key: 'NSTableViewDefaultSizeMode'
-    type: 'int'
-    value: 2
-    state: 'present'
-
-- name: 'Disable over-the-top focus ring animation'
-  osx_defaults:
-    domain: 'NSGlobalDomain'
-    key: 'NSUseAnimatedFocusRing'
-    type: 'bool'
-    value: false
-    state: 'present'
-
-- name: 'Increase window resize speed for Cocoa applications'
-  osx_defaults:
-    domain: 'NSGlobalDomain'
-    key: 'NSWindowResizeTime'
-    type: 'float'
-    value: 0.001
-    state: 'present'
-
-- name: 'Expand save panel by default 1'
-  osx_defaults:
-    domain: 'NSGlobalDomain'
-    key: 'NSNavPanelExpandedStateForSaveMode'
-    type: 'bool'
-    value: true
-    state: 'present'
-
-- name: 'Expand save panel by default 2'
-  osx_defaults:
-    domain: 'NSGlobalDomain'
-    key: 'NSNavPanelExpandedStateForSaveMode2'
-    type: 'bool'
-    value: true
-    state: 'present'
-
-- name: 'Expand print panel by default 1'
-  osx_defaults:
-    domain: 'NSGlobalDomain'
-    key: 'PMPrintingExpandedStateForPrint'
-    type: 'bool'
-    value: true
-    state: 'present'
-
-- name: 'Expand save panel by default 2'
-  osx_defaults:
-    domain: 'NSGlobalDomain'
-    key: 'PMPrintingExpandedStateForPrint2'
-    type: 'bool'
-    value: true
-    state: 'present'
-
-- name: 'Save to disk (not to iCloud) by default'
-  osx_defaults:
-    domain: 'NSGlobalDomain'
-    key: 'NSDocumentSaveNewDocumentsToCloud'
-    type: 'bool'
-    value: false
-    state: 'present'
-
-- name: 'Automatically quit printer app once the print jobs complete'
-  osx_defaults:
-    domain: 'com.apple.print.PrintingPrefs'
-    key: '"Quit When Finished"'
-    type: 'bool'
-    value: true
-    state: 'present'
-
-- name: 'Disable the "Are you sure you want to open this application?" dialog'
-  osx_defaults:
-    domain: 'com.apple.LaunchServices'
-    key: 'LSQuarantine'
-    type: 'bool'
-    value: false
-    state: 'present'
-
-- name: 'Remove duplicates in the "Open With" menu (also see `lscleanup` alias)'
-  command: '/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
-
-- name: 'Display ASCII control characters using caret notation in standard text views'
-  osx_defaults:
-    domain: 'NSGlobalDomain'
-    key: 'NSTextShowsControlCharacters'
-    type: 'bool'
-    value: true
-    state: 'present'
-
-- name: 'Disable resume system-wide'
-  osx_defaults:
-    domain: 'com.apple.systempreferences'
-    key: 'NSQuitAlwaysKeepsWindows'
-    type: 'bool'
-    value: false
-    state: 'present'
-
-- name: 'Disable automatic termination of inactive apps'
-  osx_defaults:
-    domain: 'NSGlobalDomain'
-    key: 'NSDisableAutomaticTermination'
-    type: 'bool'
-    value: true
-    state: 'present'
-
-- name: 'Disable the crash reporter'
-  osx_defaults:
-    domain: 'com.apple.CrashReporter'
-    key: 'DialogType'
-    type: 'string'
-    value: '"none"'
-    state: 'present'
-
-- name: 'Set Help Viewer windows to non-floating mode'
-  osx_defaults:
-    domain: 'com.apple.helpviewer'
-    key: 'DevMode'
-    type: 'bool'
-    value: true
-    state: 'present'
-
-- name: 'Reveal IP address, hostname, OS version, etc. when clicking the clock in the login window'
-  osx_defaults:
-    domain: '/Library/Preferences/com.apple.loginwindow'
-    key: 'AdminHostInfo'
-    type: 'string'
-    value: 'HostName'
-    state: 'present'
-  become: yes
-
-- name: 'Restart automatically if the computer freezes'
-  command: 'systemsetup -setrestartfreeze on'
-  become: yes
-
-- name: 'Never go into computer sleep mode'
-  command: 'systemsetup -setcomputersleep Off'
-  become: yes
-
-- name: 'Disable Notification Center and remove the menu bar icon'
-  command: 'launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null'
-
-- name: "Disable automatic capitalization as it's annoying when typing code"
-  osx_defaults:
-    domain: 'NSGlobalDomain'
-    key: 'NSAutomaticCapitalizationEnabled'
-    type: 'bool'
-    value: false
-    state: 'present'
-
-- name: "Disable smart dashes as they're annoying when typing code"
-  osx_defaults:
-    domain: 'NSGlobalDomain'
-    key: 'NSAutomaticDashSubstitutionEnabled'
-    type: 'bool'
-    value: false
-    state: 'present'
-
-- name: "Disable automatic period substitution as it's annoying when typing code"
-  osx_defaults:
-    domain: 'NSGlobalDomain'
-    key: 'NSAutomaticPeriodSubstitutionEnabled'
-    type: 'bool'
-    value: false
-    state: 'present'
-
-- name: "Disable smart quotes as they're annoying when typing code"
-  osx_defaults:
-    domain: 'NSGlobalDomain'
-    key: 'NSAutomaticQuoteSubstitutionEnabled'
-    type: 'bool'
-    value: false
-    state: 'present'
-
-- name: 'Disable auto-correct'
-  osx_defaults:
-    domain: 'NSGlobalDomain'
-    key: 'NSAutomaticSpellingCorrectionEnabled'
-    type: 'bool'
-    value: false
-    state: 'present'
-
-- name: 'Disable hibernation (speeds up entering sleep mode)'
-  command: 'pmset -a hibernatemode 0'
-  become: yes
-
-- name: 'Enable bluetooth trackpad clicking'
-  osx_defaults:
-    domain: 'com.apple.driver.AppleBluetoothMultitouch.trackpad'
-    key: 'Clicking'
-    type: 'int'
-    value: 1
-    state: 'present'
-
-- name: 'Enable tap to click'
-  osx_defaults:
-    domain: 'NSGlobalDomain'
-    key: 'com.apple.mouse.tapBehavior'
-    type: 'int'
-    value: 1
-    state: 'present'
-
-- name: 'Enable tap to click for the login screen'
-  osx_defaults:
-    host: 'currentHost'
-    domain: 'NSGlobalDomain'
-    key: 'com.apple.mouse.tapBehavior'
-    type: 'int'
-    value: 1
-    state: 'present'
+  loop: '{{ dockapps_to_persist }}'

@@ -1,0 +1,64 @@
+---
+dirs:
+  - '~/.gnupg'
+  - '~/.vim'
+  - '~/data/aws/s3/chop-dbhi-brownea'
+  - '~/data/gcp/storage/syncopation'
+
+dotfiles:
+  - { path: '~/.ansible.cfg', src: '{{ role_path }}/files/ansible.cfg' }
+  - { path: '~/.editrc', src: '{{ role_path }}/files/editrc' }
+  - { path: '~/.gitconfig', src: '{{ role_path }}/files/gitconfig' }
+  - { path: '~/.gitignore', src: '{{ role_path }}/files/gitignore' }
+  - { path: '~/.gnupg/gpg.conf', src: '{{ role_path }}/files/gnupg/gpg.conf' }
+  - { path: '~/.gnupg/gpg-agent.conf', src: '{{ role_path }}/files/gnupg/gpg-agent.conf' }
+  - { path: '~/.inputrc', src: '{{ role_path }}/files/inputrc' }
+  - { path: '~/.npmrc', src: '{{ role_path }}/files/npmrc' }
+  - { path: '~/.spacemacs', src: '{{ role_path }}/files/spacemacs' }
+  - { path: '~/.tmux.conf', src: '{{ role_path }}/files/tmux.conf' }
+  - { path: '~/.vim/after', src: '{{ role_path }}/files/vim/after' }
+  - { path: '~/.vim/ftplugin', src: '{{ role_path }}/files/vim/ftplugin' }
+  - { path: '~/.vim/settings.vim', src: '{{ role_path }}/files/vim/settings.vim' }
+  - { path: '~/.vim/vundles', src: '{{ role_path }}/files/vim/vundles' }
+  - { path: '~/.vim/vundles.vim', src: '{{ role_path }}/files/vim/vundles.vim' }
+  - { path: '~/.vimrc', src: '{{ role_path }}/files/vimrc' }
+  - { path: '~/.vimrc.after', src: '{{ role_path }}/files/vimrc.after' }
+  - { path: '~/.vimrc.before', src: '{{ role_path }}/files/vimrc.before' }
+  - { path: '~/.zsh', src: '{{ role_path }}/files/zsh' }
+  - { path: '~/.zsh.after', src: '{{ role_path }}/files/zsh.after' }
+  - { path: '~/.zsh.before', src: '{{ role_path }}/files/zsh.before' }
+  - { path: '~/.zsh.prompts', src: '{{ role_path }}/files/zsh.prompts' }
+  - { path: '~/.zpreztorc', src: '{{ role_path }}/files/zpreztorc' }
+
+git_repos:
+  - { dest: '~/.emacs.d', repo: 'git@github.com:syl20bnr/spacemacs.git', version: 'develop' }
+  - { dest: '~/.vim/bundle/vundle', repo: 'git@github.com:gmarik/vundle.git' }
+  - { dest: '~/.zpresto', repo: 'git@github.com:sorin-ionescu/prezto.git', force: 'yes' }
+  - { dest: '~/.fonts', repo: 'git@github.com:powerline/fonts.git' }
+  - { dest: '~/src/github.research.chop.edu/libi/api', repo: 'git@github.research.chop.edu:libi/api.git', ignore_errors: 'yes' }
+  - { dest: '~/src/github.research.chop.edu/libi/client', repo: 'git@github.research.chop.edu:libi/client.git', ignore_errors: 'yes' }
+  - { dest: '~/src/github.research.chop.edu/libi/datasource', repo: 'git@github.research.chop.edu:libi/datasource.git', ignore_errors: 'yes' }
+  - { dest: '~/src/github.research.chop.edu/libi/etl', repo: 'git@github.research.chop.edu:libi/etl.git', ignore_errors: 'yes' }
+  - { dest: '~/src/github.research.chop.edu/libi/eventsource', repo: 'git@github.research.chop.edu:libi/eventsource.git', ignore_errors: 'yes' }
+  - { dest: '~/src/github.research.chop.edu/libi/export', repo: 'git@github.research.chop.edu:libi/export.git', ignore_errors: 'yes' }
+  - { dest: '~/src/github.research.chop.edu/libi/gateway', repo: 'git@github.research.chop.edu:libi/gateway.git', ignore_errors: 'yes' }
+  - { dest: '~/src/github.research.chop.edu/libi/ops', repo: 'git@github.research.chop.edu:libi/ops.git', ignore_errors: 'yes' }
+  - { dest: '~/src/github.research.chop.edu/libi/project', repo: 'git@github.research.chop.edu:libi/project.git', ignore_errors: 'yes' }
+  - { dest: '~/src/github.research.chop.edu/libi/query', repo: 'git@github.research.chop.edu:libi/query.git', ignore_errors: 'yes' }
+  - { dest: '~/src/github.research.chop.edu/libi/views', repo: 'git@github.research.chop.edu:libi/views.git', ignore_errors: 'yes' }
+
+git_dotfiles:
+  - { path: '~/.zlogin', src: '~/.zpresto/runcoms/zlogin' }
+  - { path: '~/.zlogout', src: '~/.zpresto/runcoms/zlogout' }
+  - { path: '~/.zprofile', src: '~/.zpresto/runcoms/zprofile' }
+  - { path: '~/.zshenv', src: '~/.zpresto/runcoms/zshenv' }
+  - { path: '~/.zshrc', src: '~/.zpresto/runcoms/zshrc' }
+
+pip_pkgs:
+  - { name: 'git+ssh://git@github.research.chop.edu/devops/aws-auth-cli.git', ignore_errors: 'yes' }
+
+aws_s3_syncs:
+  - { src: 's3://chop-dbhi-brownea', dest: '~/data/aws/s3/chop-dbhi-brownea', profile: 'saml', ignore_errors: 'yes' }
+
+gcp_storage_syncs:
+  - { src: 'gs://syncopation', dest: '~/data/gcp/storage/syncopation' }

@@ -1,7 +1,239 @@
 ---
 dockapps_to_persist:
-  - '/Applications/Firefox.app'
+  - '/Applications/Google\ Chrome.app'
   - '/Applications/Emacs.app'
   - '/Applications/iTerm.app'
   - '/Applications/Microsoft\ Outlook.app'
-  - '/Applications/Utilities/Activity\ Monitor.app'
+
+osx_defaults:
+  # Disable transparency in the menu bar and elsewhere in Yosemite.
+  - { domain: 'com.apple.universalaccess', key: 'reduceTransparency', type: 'bool', value: true }
+  # Set sidebar icon size to medium.
+  - { key: 'NSTableViewDefaultSizeMode', type: 'int', value: 2 }
+  # Disable over-the-top focus ring animation.
+  - { key: 'NSUseAnimatedFocusRing', type: 'bool', value: false }
+  # Increase window resize speed for Cocoa applications.
+  - { key: 'NSWindowResizeTime', type: 'float', value: 0.001 }
+  # Expand save panel by default 1.
+  - { key: 'NSNavPanelExpandedStateForSaveMode', type: 'bool', value: true }
+  # Expand save panel by default 2.
+  - { key: 'NSNavPanelExpandedStateForSaveMode2', type: 'bool', value: true }
+  # Expand print panel by default 1.
+  - { key: 'PMPrintingExpandedStateForPrint', type: 'bool', value: true }
+  # Expand save panel by default 2.
+  - { key: 'PMPrintingExpandedStateForPrint2', type: 'bool', value: true }
+  # Save to disk (not to iCloud) by default.
+  - { key: 'NSDocumentSaveNewDocumentsToCloud', type: 'bool', value: false }
+  # Automatically quit printer app once the print jobs complete.
+  - { domain: 'com.apple.print.PrintingPrefs', key: '"Quit When Finished"', type: 'bool', value: true }
+  # Disable the "Are you sure you want to open this application?" dialog.
+  - { domain: 'com.apple.LaunchServices', key: 'LSQuarantine', type: 'bool', value: false }
+  # Display ASCII control characters using caret notation in standard text views.
+  - { key: 'NSTextShowsControlCharacters', type: 'bool', value: true }
+  # Disable resume system-wide.
+  - { domain: 'com.apple.systempreferences', key: 'NSQuitAlwaysKeepsWindows', type: 'bool', value: false }
+  # Disable automatic termination of inactive apps.
+  - { key: 'NSDisableAutomaticTermination', type: 'bool', value: true }
+  # Set Help Viewer windows to non-floating mode.
+  - { domain: 'com.apple.helpviewer', key: 'DevMode', type: 'bool', value: true }
+  # Reveal IP address, hostname, OS version, etc. when clicking the clock in the login window.
+  - { domain: '/Library/Preferences/com.apple.loginwindow', key: 'AdminHostInfo', type: 'string', value: 'HostName', become: 'yes' }
+  # Disable automatic capitalization as it's annoying when typing code.
+  - { key: 'NSAutomaticCapitalizationEnabled', type: 'bool', value: false }
+  # Disable smart dashes as they're annoying when typing code.
+  - { key: 'NSAutomaticDashSubstitutionEnabled', type: 'bool', value: false }
+  # Disable automatic period substitution as it's annoying when typing code.
+  - { key: 'NSAutomaticPeriodSubstitutionEnabled', type: 'bool', value: false }
+  # Disable smart quotes as they're annoying when typing code.
+  - { key: 'NSAutomaticQuoteSubstitutionEnabled', type: 'bool', value: false }
+  # Disable auto-correct.
+  - { key: 'NSAutomaticSpellingCorrectionEnabled', type: 'bool', value: false }
+  # Enable bluetooth trackpad clicking.
+  - { domain: 'com.apple.driver.AppleBluetoothMultitouch.trackpad', key: 'Clicking', type: 'int', value: 1 }
+  # Enable tap to click.
+  - { key: 'com.apple.mouse.tapBehavior', type: 'int', value: 1 }
+  # Enable tap to click for the login screen.
+  - { host: 'currentHost', key: 'com.apple.mouse.tapBehavior', type: 'int', value: 1 }
+  # Disable "natural" (Lion-style) scrolling.
+  - { key: 'com.apple.swipescrolldirection', type: 'bool', value: false }
+  # Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs).
+  - { key: 'AppleKeyboardUIMode', type: 'int', value: 3 }
+  # Use scroll gesture with the Ctrl (^) modifier key to zoom
+  - { domain: 'com.apple.universalaccess', key: 'closeViewScrollWheelToggle', type: 'bool', value: true }
+  - { domain: 'com.apple.universalaccess', key: 'HIDScrollZoomModifierMask', type: 'int', value: 262144 }
+  # Follow the keyboard focus while zoomed in
+  - { domain: 'com.apple.universalaccess', key: 'closeViewZoomFollowsFocus', type: 'bool', value: true }
+  # Disable press-and-hold for keys in favor of key repeat
+  - { key: 'ApplePressAndHoldEnabled', type: 'bool', value: false }
+  # Set a blazingly fast keyboard repeat rate
+  - { key: 'KeyRepeat', type: 'int', value: 1 }
+  - { key: 'InitialKeyRepeat', type: 'int', value: 10 }
+  # Require password immediately after sleep or screen saver begins
+  - { domain: 'com.apple.screensaver', key: 'askForPassword', type: 'int', value: 1 }
+  - { domain: 'com.apple.screensaver', key: 'askForPasswordDelay', type: 'int', value: 0 }
+  # Save screenshots to the desktop
+  - { domain: 'com.apple.screencapture', key: 'location', type: 'string', value: "${HOME}/Pictures" }
+  # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
+  - { domain: 'com.apple.screencapture', key: 'type', type: 'string', value: "png" }
+  # Disable shadow in screenshots
+  - { domain: 'com.apple.screencapture', key: 'disable-shadow', type: 'bool', value: true }
+  # Enable subpixel font rendering on non-Apple LCDs
+  # Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
+  - { key: 'AppleFontSmoothing', type: 'int', value: 1 }
+  # Enable HiDPI display modes (requires restart)
+  - { domain: '/Library/Preferences/com.apple.windowserver', key: 'DisplayResolutionEnabled', type: 'bool', value: true, become: 'yes' }
+  # Finder: allow quitting via ⌘ + Q; doing so will also hide desktop icons
+  - { domain: 'com.apple.finder', key: 'QuitMenuItem', type: 'bool', value: true }
+  # Finder: disable window animations and Get Info animations
+  - { domain: 'com.apple.finder', key: 'DisableAllAnimations', type: 'bool', value: true }
+  # Set Desktop as the default location for new Finder windows
+  # For other paths, use `PfLo` and `file:///full/path/here/`
+  - { domain: 'com.apple.finder', key: 'NewWindowTarget', type: 'string', value: "PfLo" }
+  - { domain: 'com.apple.finder', key: 'NewWindowTargetPath', type: 'string', value: "file://${HOME}/" }
+  # Show icons for hard drives, servers, and removable media on the desktop
+  - { domain: 'com.apple.finder', key: 'ShowExternalHardDrivesOnDesktop', type: 'bool', value: true }
+  - { domain: 'com.apple.finder', key: 'ShowHardDrivesOnDesktop', type: 'bool', value: true }
+  - { domain: 'com.apple.finder', key: 'ShowMountedServersOnDesktop', type: 'bool', value: true }
+  - { domain: 'com.apple.finder', key: 'ShowRemovableMediaOnDesktop', type: 'bool', value: true }
+  # Finder: show hidden files by default
+  - { domain: 'com.apple.finder', key: 'AppleShowAllFiles', type: 'bool', value: true }
+  # Finder: show all filename extensions
+  - { key: 'AppleShowAllExtensions', type: 'bool', value: true }
+  # Finder: show status bar
+  - { domain: 'com.apple.finder', key: 'ShowStatusBar', type: 'bool', value: true }
+  # Finder: show path bar
+  - { domain: 'com.apple.finder', key: 'ShowPathbar', type: 'bool', value: true }
+  # Display full POSIX path as Finder window title
+  - { domain: 'com.apple.finder', key: '_FXShowPosixPathInTitle', type: 'bool', value: true }
+  # Keep folders on top when sorting by name
+  - { domain: 'com.apple.finder', key: '_FXSortFoldersFirst', type: 'bool', value: true }
+  # When performing a search, search the current folder by default
+  - { domain: 'com.apple.finder', key: 'FXDefaultSearchScope', type: 'string', value: "SCcf" }
+  # Disable the warning when changing a file extension
+  - { domain: 'com.apple.finder', key: 'FXEnableExtensionChangeWarning', type: 'bool', value: false }
+  # Enable spring loading for directories
+  - { key: 'com.apple.springing.enabled', type: 'bool', value: true }
+  # Remove the spring loading delay for directories
+  - { key: 'com.apple.springing.delay', type: 'float', value: 0 }
+  # Avoid creating .DS_Store files on network or USB volumes
+  - { domain: 'com.apple.desktopservices', key: 'DSDontWriteNetworkStores', type: 'bool', value: true }
+  - { domain: 'com.apple.desktopservices', key: 'DSDontWriteUSBStores', type: 'bool', value: true }
+  # Disable disk image verification
+  - { domain: 'com.apple.frameworks.diskimages', key: 'skip-verify', type: 'bool', value: true }
+  - { domain: 'com.apple.frameworks.diskimages', key: 'skip-verify-locked', type: 'bool', value: true }
+  - { domain: 'com.apple.frameworks.diskimages', key: 'skip-verify-remote', type: 'bool', value: true }
+  # Automatically open a new Finder window when a volume is mounted
+  - { domain: 'com.apple.frameworks.diskimages', key: 'auto-open-ro-root', type: 'bool', value: true }
+  - { domain: 'com.apple.frameworks.diskimages', key: 'auto-open-rw-root', type: 'bool', value: true }
+  - { domain: 'com.apple.finder', key: 'OpenWindowForNewRemovableDisk', type: 'bool', value: true }
+  # Use list view in all Finder windows by default
+  # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
+  - { domain: 'com.apple.finder', key: 'FXPreferredViewStyle', type: 'string', value: "Nlsv" }
+  # Disable the warning before emptying the Trash
+  - { domain: 'com.apple.finder', key: 'WarnOnEmptyTrash', type: 'bool', value: false }
+  # Enable highlight hover effect for the grid view of a stack (Dock)
+  - { domain: 'com.apple.dock', key: 'mouse-over-hilite-stack', type: 'bool', value: true }
+  # Set the icon size of Dock items to 36 pixels
+  - { domain: 'com.apple.dock', key: 'tilesize', type: 'int', value: 36 }
+  # Change minimize/maximize window effect
+  - { domain: 'com.apple.dock', key: 'mineffect', type: 'string', value: "scale" }
+  # Minimize windows into their application’s icon
+  - { domain: 'com.apple.dock', key: 'minimize-to-application', type: 'bool', value: true }
+  # Enable spring loading for all Dock items
+  - { domain: 'com.apple.dock', key: 'enable-spring-load-actions-on-all-items', type: 'bool', value: true }
+  # Show indicator lights for open applications in the Dock
+  - { domain: 'com.apple.dock', key: 'show-process-indicators', type: 'bool', value: true }
+  # Don’t animate opening applications from the Dock
+  - { domain: 'com.apple.dock', key: 'launchanim', type: 'bool', value: false }
+  # Speed up Mission Control animations
+  - { domain: 'com.apple.dock', key: 'expose-animation-duration', type: 'float', value: 0.1 }
+  # Don’t group windows by application in Mission Control
+  # (i.e. use the old Exposé behavior instead)
+  - { domain: 'com.apple.dock', key: 'expose-group-by-app', type: 'bool', value: false }
+  # Disable Dashboard
+  - { domain: 'com.apple.dashboard', key: 'mcx-disabled', type: 'bool', value: true }
+  # Don’t show Dashboard as a Space
+  - { domain: 'com.apple.dock', key: 'dashboard-in-overlay', type: 'bool', value: true }
+  # Don’t automatically rearrange Spaces based on most recent use
+  - { domain: 'com.apple.dock', key: 'mru-spaces', type: 'bool', value: false }
+  # Remove the auto-hiding Dock delay
+  - { domain: 'com.apple.dock', key: 'autohide-delay', type: 'float', value: 0 }
+  # Remove the animation when hiding/showing the Dock
+  - { domain: 'com.apple.dock', key: 'autohide-time-modifier', type: 'float', value: 0 }
+  # Automatically hide and show the Dock
+  - { domain: 'com.apple.dock', key: 'autohide', type: 'bool', value: true }
+  # Make Dock icons of hidden applications translucent
+  - { domain: 'com.apple.dock', key: 'showhidden', type: 'bool', value: true }
+  # Hot corners
+  # Possible values:
+  #  0: no-op
+  #  2: Mission Control
+  #  3: Show application windows
+  #  4: Desktop
+  #  5: Start screen saver
+  #  6: Disable screen saver
+  #  7: Dashboard
+  # 10: Put display to sleep
+  # 11: Launchpad
+  # 12: Notification Center
+  # Top right screen corner → Desktop
+  - { domain: 'com.apple.dock', key: 'wvous-bl-corner', type: 'int', value: 4 }
+  - { domain: 'com.apple.dock', key: 'wvous-bl-modifier', type: 'int', value: 0 }
+  # Bottom left screen corner → Start screen saver
+  - { domain: 'com.apple.dock', key: 'wvous-br-corner', type: 'int', value: 5 }
+  - { domain: 'com.apple.dock', key: 'wvous-br-modifier', type: 'int', value: 0 }
+  # Disable Spotlight indexing for any volume that gets mounted and has not yet
+  # been indexed before.
+  # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
+  - { domain: '/.Spotlight-V100/VolumeConfiguration', key: 'Exclusions', type: 'array', value: ["/Volumes"], become: 'yes' }
+  # Don’t display the annoying prompt when quitting iTerm
+  - { domain: 'com.googlecode.iterm2', key: 'PromptOnQuit', type: 'bool', value: false }
+  # Prevent Time Machine from prompting to use new hard drives as backup volume
+  - { domain: 'com.apple.TimeMachine', key: 'DoNotOfferNewDisksForBackup', type: 'bool', value: true }
+  # Enable Dashboard dev mode (allows keeping widgets on the desktop)
+  - { domain: 'com.apple.dashboard', key: 'devmode', type: 'bool', value: true }
+  # Enable the debug menu in Disk Utility
+  - { domain: 'com.apple.DiskUtility', key: 'DUDebugMenuEnabled', type: 'bool', value: true }
+  - { domain: 'com.apple.DiskUtility', key: 'advanced-image-options', type: 'bool', value: true }
+  # Enable the automatic update check
+  - { domain: 'com.apple.SoftwareUpdate', key: 'AutomaticCheckEnabled', type: 'bool', value: true }
+  # Check for software updates daily, not just once per week
+  - { domain: 'com.apple.SoftwareUpdate', key: 'ScheduleFrequency', type: 'int', value: 1 }
+  # Download newly available updates in background
+  - { domain: 'com.apple.SoftwareUpdate', key: 'AutomaticDownload', type: 'int', value: 1 }
+  # Install System data files & security updates
+  - { domain: 'com.apple.SoftwareUpdate', key: 'CriticalUpdateInstall', type: 'int', value: 1 }
+  # Automatically download apps purchased on other Macs
+  - { domain: 'com.apple.SoftwareUpdate', key: 'ConfigDataInstall', type: 'int', value: 1 }
+  # Turn on app auto-update
+  - { domain: 'com.apple.commerce', key: 'AutoUpdate', type: 'bool', value: true }
+  # Allow the App Store to reboot machine on macOS updates
+  - { domain: 'com.apple.commerce', key: 'AutoUpdateRestartRequired', type: 'bool', value: true }
+  # Prevent Photos from opening automatically when devices are plugged in
+  - { host: 'currentHost', domain: 'com.apple.ImageCapture', key: 'disableHotPlug', type: 'bool', value: true }
+  # Use the system-native print preview dialog
+  - { domain: 'com.google.Chrome', key: 'DisablePrintPreview', type: 'bool', value: true }
+  - { domain: 'com.google.Chrome.canary', key: 'DisablePrintPreview', type: 'bool', value: true }
+  # Expand the print dialog by default
+  - { domain: 'com.google.Chrome', key: 'PMPrintingExpandedStateForPrint2', type: 'bool', value: true }
+  - { domain: 'com.google.Chrome.canary', key: 'PMPrintingExpandedStateForPrint2', type: 'bool', value: true }
+
+plist_entries:
+  # Show item info near icons on the desktop and in other icon views
+  - { key: ':DesktopViewSettings:IconViewSettings:showItemInfo', type: 'bool', value: 'true', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  - { key: ':FK_StandardViewSettings:IconViewSettings:showItemInfo', type: 'bool', value: 'true', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  - { key: ':StandardViewSettings:IconViewSettings:showItemInfo', type: 'bool', value: 'true', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  # Show item info to the right of the icons on the desktop
+  - { key: ':DesktopViewSettings:IconViewSettings:labelOnBottom', type: 'bool', value: 'false', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  # Enable snap-to-grid for icons on the desktop and in other icon views
+  - { key: ':DesktopViewSettings:IconViewSettings:arrangeBy', type: 'string', value: 'grid', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  - { key: ':FK_StandardViewSettings:IconViewSettings:arrangeBy', type: 'string', value: 'grid', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  - { key: ':StandardViewSettings:IconViewSettings:arrangeBy', type: 'string', value: 'grid', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  # Increase grid spacing for icons on the desktop and in other icon views
+  - { key: ':DesktopViewSettings:IconViewSettings:gridSpacing', type: 'integer', value: '100', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  - { key: ':FK_StandardViewSettings:IconViewSettings:gridSpacing', type: 'integer', value: '100', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  - { key: ':StandardViewSettings:IconViewSettings:gridSpacing', type: 'integer', value: '100', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  # Increase the size of icons on the desktop and in other icon views
+  - { key: ':DesktopViewSettings:IconViewSettings:iconSize', type: 'integer', value: '80', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  - { key: ':FK_StandardViewSettings:IconViewSettings:iconSize', type: 'integer', value: '80', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  - { key: ':StandardViewSettings:IconViewSettings:iconSize', type: 'integer', value: '80', plist: '~/Library/Preferences/com.apple.finder.plist' }

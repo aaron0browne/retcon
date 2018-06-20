@@ -1,0 +1,8 @@
+let g:yankring_history_file = '.vim-yankring-history'
+
+if !has("gui_running")
+      let g:solarized_termtrans=1
+endif
+
+set background=light
+colorscheme solarized
