@@ -1,25 +1,30 @@
 ---
-- name: 'Disable the sound effects on boot'
-  command: 'nvram SystemAudioVolume=" "'
-  become: yes
+- name: 'Place symlinks.'
+  file:
+    path: '{{ item.path }}'
+    src: '{{ item.src }}'
+    state: 'link'
+  loop: '{{ symlinks }}'
 
-- name: 'Remove duplicates in the "Open With" menu (also see `lscleanup` alias)'
-  command: '/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
+- name: 'Enable custom services.'
+  command: 'launchctl load -w {{ item }} 2> /dev/null'
+  loop:
+    - '~/Library/LaunchAgents/gnu.emacs.daemon.plist'
 
-- name: 'Show the ~/Library folder.'
-  command: 'chflags nohidden ~/Library'
-
-- name: 'Show the /Volumes folder.'
-  command: 'chflags nohidden /Volumes'
-  become: 'yes'
-
-- name: 'Get font file names.'
+- name: 'Get names of font files installed by common role.'
   command: 'find ~/.fonts \( -name "*.[ot]tf" -or -name "*.pcf.gz" \) -type f'
   register: 'font_files'
 
 - name: 'Install fonts.'
   command: 'cp "{{ item }}" ~/Library/Fonts'
   loop: '{{ font_files.stdout_lines }}'
+
+- name: 'Show system folders.'
+  command: 'chflags nohidden {{ item }}'
+  become: 'yes'
+  loop:
+    - '~/Library'
+    - '/Volumes'
 
 - name: 'Configure power management settings.'
   command: 'pmset -a {{ item.setting }} {{ item.value }}'
@@ -43,12 +48,6 @@
     - param: 'setcomputersleep'
       value: 'off'
 
-- name: 'Disable system services.'
-  command: 'launchctl unload -w {{ item }} 2> /dev/null'
-  loop:
-    - '/System/Library/LaunchAgents/com.apple.notificationcenterui.plist'
-    - '/System/Library/LaunchAgents/com.openssh.ssh-agent.plist'
-
 - name: 'Set osx defaults.'
   osx_defaults:
     host: '{{ item.host | default(omit) }}'
@@ -60,9 +59,6 @@
   become: '{{ item.become | default(omit) }}'
   loop: '{{ osx_defaults }}'
 
-- name: 'Expand the following File Info panes: "General", "Open with", and "Sharing & Permissions".'
-  command: 'defaults write com.apple.finder FXInfoPanesExpanded -dict General -bool true OpenWith -bool true Privileges -bool true'
-
 - name: 'Delete plist entries.'
   command: '/usr/libexec/PlistBuddy -c "Delete {{ item.key }}" {{ item.plist }}'
   ignore_errors: 'yes'
@@ -72,14 +68,21 @@
   command: '/usr/libexec/PlistBuddy -c "Add {{ item.key }} {{ item.type }} {{ item.value }}" {{ item.plist }}'
   loop: '{{ plist_entries }}'
 
-- name: "Modify zshrc to load google cloud sdk."
-  lineinfile:
-    path: '~/.zshrc'
-    line: 'source {{ item }}'
-    state: 'present'
+- name: 'Expand the following File Info panes: "General", "Open with", and "Sharing & Permissions".'
+  command: 'defaults write com.apple.finder FXInfoPanesExpanded -dict General -bool true OpenWith -bool true Privileges -bool true'
+
+- name: 'Disable system services.'
+  command: 'launchctl unload -w {{ item }} 2> /dev/null'
   loop:
-    - '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-    - '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+    - '/System/Library/LaunchAgents/com.apple.notificationcenterui.plist'
+    - '/System/Library/LaunchAgents/com.openssh.ssh-agent.plist'
+
+- name: 'Disable the sound effects on boot'
+  command: 'nvram SystemAudioVolume=" "'
+  become: yes
+
+- name: 'Remove duplicates in the "Open With" menu (also see `lscleanup` alias)'
+  command: '/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 
 - name: 'Remove all items from osx dock'
   shell: 'dockutil --remove all'

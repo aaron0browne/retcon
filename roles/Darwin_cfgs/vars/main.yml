@@ -1,9 +1,7 @@
 ---
-dockapps_to_persist:
-  - '/Applications/Google\ Chrome.app'
-  - '/Applications/Emacs.app'
-  - '/Applications/iTerm.app'
-  - '/Applications/Microsoft\ Outlook.app'
+symlinks:
+  - { path: '~/.zsh/gcp-sdk.zsh', src: '{{ role_path }}/files/zsh/gcp-sdk.zsh' }
+  - { path: '~/Library/LaunchAgents/gnu.emacs.daemon.plist', src: '{{ role_path }}/files/gnu.emacs.daemon.plist' }
 
 osx_defaults:
   # Disable transparency in the menu bar and elsewhere in Yosemite.
@@ -237,3 +235,9 @@ plist_entries:
   - { key: ':DesktopViewSettings:IconViewSettings:iconSize', type: 'integer', value: '80', plist: '~/Library/Preferences/com.apple.finder.plist' }
   - { key: ':FK_StandardViewSettings:IconViewSettings:iconSize', type: 'integer', value: '80', plist: '~/Library/Preferences/com.apple.finder.plist' }
   - { key: ':StandardViewSettings:IconViewSettings:iconSize', type: 'integer', value: '80', plist: '~/Library/Preferences/com.apple.finder.plist' }
+
+dockapps_to_persist:
+  - '/Applications/Google\ Chrome.app'
+  - '/Applications/Emacs.app'
+  - '/Applications/iTerm.app'
+  - '/Applications/Microsoft\ Outlook.app'

@@ -12,7 +12,6 @@ fi
 # PS
 alias psa="ps aux"
 alias psg="ps aux | grep "
-alias psp='ps aux | grep python'
 
 # Moving around
 alias cdb='cd -'
@@ -34,12 +33,13 @@ fi
 alias lsg='ll | grep'
 
 # emacs
-alias emacs='emacsclient -n'
-alias semacs='sudo emacsclient -n'
-alias temacs='emacsclient -t'
-alias kemacs="emacsclient -e '(kill-emacs)'"
+alias emd='emacs --daemon'
+alias em='emacsclient -nc'
+alias kem="emacsclient -e '(kill-emacs)'"
+alias sem='sudo emacs'
+alias tem='emacs -t'
 
-alias ae='emacs ~/.zsh/aliases.zsh' #alias edit
+alias ae='em ~/.zsh/aliases.zsh' #alias edit
 alias ar='source ~/.zsh/aliases.zsh'  #alias reload
 alias gar="killall -HUP -u \"$USER\" zsh"  #global alias reload
 
@@ -57,73 +57,66 @@ alias :q='exit'
 alias ve='vim ~/.vimrc'
 
 # zsh profile editing
-alias ze='emacs ~/.zshrc'
+alias ze='em ~/.zshrc'
 
 # Git Aliases
-alias gs='git status'
-alias gstsh='git stash'
-alias gst='git stash'
-alias gsp='git stash pop'
-alias gsa='git stash apply'
-alias gsh='git show'
-alias gshw='git show'
-alias gshow='git show'
-alias gi='emacs .gitignore'
-alias gcm='git ci -m'
-alias gcim='git ci -m'
+# Staged and cached are the same thing
+alias add='git add -A'
+alias co='git co'
+alias gam='git amend --no-edit'
+alias gap='git add -p'
+alias gb='git b'
+alias gbb='git bisect bad'
+alias gbg='git bisect good'
+alias gbi='git rebase --interactive'
 alias gci='git ci'
+alias gcln='git clean'
+alias gclndf='git clean -df'
+alias gclndfx='git clean -dfx'
+alias gcm='git ci -m'
 alias gco='git co'
 alias gcp='git cp'
-alias ga='git add -A'
-alias gap='git add -p'
-alias guns='git unstage'
-alias gunc='git uncommit'
-alias gm='git merge'
-alias gms='git merge --squash'
-alias gam='git amend --reset-author'
-alias grv='git remote -v'
-alias grr='git remote rm'
-alias grad='git remote add'
-alias gre='git rebase'
-alias gra='git rebase --abort'
-alias ggrc='git rebase --continue'
-alias gbi='git rebase --interactive'
-alias gl='git l'
-alias glg='git l'
-alias glog='git l'
-alias co='git co'
+alias gd='git diff'
+alias gdc='git diff --cached -w'
+alias gdmb='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
+alias gds='git diff --staged -w'
 alias gf='git fetch'
-alias gfp='git fetch --prune'
 alias gfa='git fetch --all'
 alias gfap='git fetch --all --prune'
 alias gfch='git fetch'
-alias gd='git diff'
-alias gb='git b'
-# Staged and cached are the same thing
-alias gdc='git diff --cached -w'
-alias gds='git diff --staged -w'
-alias gpub='grb publish'
-alias gtr='grb track'
+alias gfp='git fetch --prune'
+alias ggrc='git rebase --continue'
+alias gi='emacs .gitignore'
+alias gl='git l'
+alias glg='git l'
+alias glog='git l'
+alias gnb='git nb' # new branch aka checkout -b
 alias gpl='git pull'
 alias gplr='git pull --rebase'
 alias gps='git push'
 alias gpsh='git push -u origin `git rev-parse --abbrev-ref HEAD`'
-alias gnb='git nb' # new branch aka checkout -b
+alias gpub='grb publish'
+alias gra='git rebase --abort'
+alias grad='git remote add'
+alias gre='git rebase'
+alias grr='git remote rm'
 alias grs='git reset'
 alias grsh='git reset --hard'
-alias gcln='git clean'
-alias gclndf='git clean -df'
-alias gclndfx='git clean -dfx'
+alias grv='git remote -v'
+alias gs='git status'
+alias gsa='git stash apply'
+alias gsh='git show'
 alias gsm='git submodule'
 alias gsmi='git submodule init'
 alias gsmu='git submodule update'
+alias gsp='git stash pop'
+alias gst='git stash'
 alias gt='git t'
-alias gbg='git bisect good'
-alias gbb='git bisect bad'
-alias gdmb='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
+alias gtr='grb track'
+alias gunc='git uncommit'
+alias guns='git unstage'
 
 # Common shell functions
-alias less='less -r'
 alias tf='tail -f'
 alias l='less'
 alias lh='ls -alt | head' # see the last modified files
@@ -133,72 +126,15 @@ alias cl='clear'
 # Zippin
 alias gz='tar -zcvf'
 
-# Ruby
-alias c='rails c' # Rails 3
-alias co='script/console' # Rails 2
-alias cod='script/console --debugger'
-
-#If you want your thin to listen on a port for local VM development
-#export VM_IP=10.0.0.1 <-- your vm ip
-alias ts='thin start -a ${VM_IP:-127.0.0.1}'
-alias ms='mongrel_rails start'
-alias tfdl='tail -f log/development.log'
-alias tftl='tail -f log/test.log'
-
 alias ka9='killall -9'
 alias k9='kill -9'
-
-# Gem install
-alias sgi='sudo gem install --no-ri --no-rdoc'
-
-# TODOS
-# This uses NValt (NotationalVelocity alt fork) - http://brettterpstra.com/project/nvalt/
-# to find the note called 'todo'
-alias todo='open nvalt://find/todo'
-
-# Forward port 80 to 3000
-alias portforward='sudo ipfw add 1000 forward 127.0.0.1,3000 ip from any to any 80 in'
-
-alias rdm='rake db:migrate'
-alias rdmr='rake db:migrate:redo'
-
-# Zeus
-alias zs='zeus server'
-alias zc='zeus console'
-alias zr='zeus rspec'
-alias zrc='zeus rails c'
-alias zrs='zeus rails s'
-alias zrdbm='zeus rake db:migrate'
-alias zrdbtp='zeus rake db:test:prepare'
-alias zzz='rm .zeus.sock; pkill zeus; zeus start'
-
-# Rspec
-alias rs='rspec spec'
-alias sr='spring rspec'
-alias src='spring rails c'
-alias srgm='spring rails g migration'
-alias srdm='spring rake db:migrate'
-alias srdt='spring rake db:migrate'
-alias srdmt='spring rake db:migrate db:test:prepare'
-
-
-# Sprintly - https://github.com/nextbigsoundinc/Sprintly-GitHub
-alias sp='sprintly'
-# spb = sprintly branch - create a branch automatically based on the bug you're working on
-alias spb="git checkout -b \`sp | tail -2 | grep '#' | sed 's/^ //' | sed 's/[^A-Za-z0-9 ]//g' | sed 's/ /-/g' | cut -d"-" -f1,2,3,4,5\`"
 
 alias hpr='hub pull-request'
 alias grb='git recent-branches'
 
 # Finder
-alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
-
-alias dbtp='spring rake db:test:prepare'
-alias dbm='spring rake db:migrate'
-alias dbmr='spring rake db:migrate:redo'
-alias dbmd='spring rake db:migrate:down'
-alias dbmu='spring rake db:migrate:up'
+alias showFiles='defaults write com.apple.finder AppleShowAllFiles -bool true; killall Finder /System/Library/CoreServices/Finder.app'
+alias hideFiles='defaults write com.apple.finder AppleShowAllFiles -bool false; killall Finder /System/Library/CoreServices/Finder.app'
 
 # Homebrew
 alias brewu='brew update  && brew upgrade --all && brew cleanup && brew prune && brew doctor'

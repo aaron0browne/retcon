@@ -1,5 +1,6 @@
 ---
 homebrew_upgrade_all_packages: yes
+
 homebrew_taps:
   - 'homebrew/core'
   - 'homebrew/cask'
@@ -45,6 +46,7 @@ homebrew_cask_apps:
 
 homebrew_installed_packages:
   - 'ack'
+  - 'aspell'
   - 'autoconf'            # Configuration script builder
   - 'awk'
   - 'awscli'
