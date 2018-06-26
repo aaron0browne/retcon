@@ -33,9 +33,14 @@ fi
 alias lsg='ll | grep'
 
 # emacs
-alias emd='emacs --daemon'
-alias em='emacsclient -nc'
-alias kem="emacsclient -e '(kill-emacs)'"
+function em() {
+    emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" | grep t
+    if [ "$?" = "1" ]; then
+        emacsclient -c -n -a "" "$@"
+    else
+        emacsclient -n -a "" "$@"
+    fi
+}
 alias sem='sudo emacs'
 alias tem='emacs -t'
 

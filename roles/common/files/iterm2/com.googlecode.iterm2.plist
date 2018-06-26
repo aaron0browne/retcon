@@ -176,9 +176,9 @@
 	<key>NSWindow Frame ProfilesPanel</key>
 	<string>677 171 735 382 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>436 426 958 451 0 0 1440 877 </string>
+	<string>436 365 796 473 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>730 0 710 878 0 0 1440 877 </string>
+	<string>0 877 1440 379 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -365,7 +365,7 @@
 				<real>0.79607843137254897</real>
 			</dict>
 			<key>BM Growl</key>
-			<true/>
+			<false/>
 			<key>Background Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -1073,7 +1073,7 @@
 				<real>0.79607843137254897</real>
 			</dict>
 			<key>BM Growl</key>
-			<true/>
+			<false/>
 			<key>Background Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -1609,7 +1609,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>11A21EB9-7B8A-44AF-B5DE-935A2334E6B3</string>
 	<key>NoSyncLastTipTime</key>
-	<real>551198152.39215899</real>
+	<real>551326670.93275499</real>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1622,11 +1622,12 @@
 	<array>
 		<string>000</string>
 		<string>0000</string>
+		<string>0001</string>
 	</array>
 	<key>OpenArrangementAtStartup</key>
 	<false/>
 	<key>OpenNoWindowsAtStartup</key>
-	<false/>
+	<true/>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -1675,7 +1676,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-06-20T14:36:12Z</date>
+	<date>2018-06-22T02:17:50Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
