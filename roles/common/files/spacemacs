@@ -35,25 +35,20 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layers
    '(react
      vimscript
-     ruby
      python
      csv
      go
      html
      javascript
      markdown
-     rust
      sql
      terraform
      yaml
      helm
-     auto-completion
      emacs-lisp
      git
-     markdown
-     neotree
-     ;;treemacs
      org
+     treemacs
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
@@ -70,14 +65,13 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(all-the-icons
-                                      treemacs-evil)
+   dotspacemacs-additional-packages '(all-the-icons)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(org-bullets)
+   dotspacemacs-excluded-packages '()
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -159,9 +153,7 @@ It should only modify the values of Spacemacs settings."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'.
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((agenda . 5)
-                                (todos . 5)
-                                (projects . 5))
+   dotspacemacs-startup-lists '((projects . 5))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
@@ -471,35 +463,6 @@ before packages are loaded."
   ;; Use aspell for flyspell spell-checking
   (setq ispell-program-name "aspell")
 
-  ;; Files where the agenda looks for items.
-  (setq org-agenda-files '("~/org/gtd/inbox.org" "~/org/gtd/next.org" "~/org/gtd/projects.org" "~/org/gtd/waiting.org"))
-  ;; Preserve single heading separator lines when folded in org
-  (setq org-cycle-separator-lines 1)
-  ;; Use clean indented sub-headings instead of multiple stars
-  (setq org-startup-indented t)
-
-  ;; Use short keybindings for todos
-  (setq org-want-todo-bindings t)
-  ;; Set todo keywords
-  (setq org-todo-keywords
-        '((sequence "NEXT(n)" "TODO(t)" "PROJ(p)" "WAITING(w)" "SOMEDAY(s)" "|" "DONE(d)" "CANCELLED(c)")))
-  ;; Set the list of standard tags available for quick completion
-  (setq org-tag-alist nil)
-  ;; Use all agenda files as refile targets
-  (setq org-refile-targets '((org-agenda-files :level . 1)))
-  ;; Allow specifying outline path when refiling
-  (setq org-refile-use-outline-path 'file)
-  ;; I don't know what this does?
-  (setq org-refile-allow-creating-parent-nodes 'confirm)
-  ;; Set up capture templates
-  (setq org-capture-templates
-           (quote (
-                   ("t" "TODO" entry (file+headline "~/org/gtd/next.org" "At Work") (file "~/org/tpls/todo.tpl") :prepend t :empty-lines 0)
-                   ("l" "Log" entry (file+datetree "~/org/logbook.org") (file "~/org/tpls/log.tpl"))
-                   ("j" "Journal" entry (file+datetree "~/org/journal.org") (file "~/org/tpls/journal.tpl"))
-                   ("r" "Weekly Review" entry (file+datetree "~/org/gtd/xarchive/weekly-reviews.org") (file "~/org/tpls/weekly-review.tpl"))
-                   )))
-
   ;; Allow pop-up frames in graphical mode
   (setq pop-up-frames "graphic-only")
   )
@@ -518,7 +481,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yasnippet-snippets yapfify yaml-mode xterm-color ws-butler winum web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen treemacs-evil treemacs ht pfuture toml-mode toc-org tagedit symon string-inflection sql-indent spaceline-all-the-icons spaceline powerline solarized-theme smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocop rspec-mode robe rjsx-mode restart-emacs rbenv rake rainbow-delimiters racer pyvenv pytest pyenv-mode py-isort pug-mode popwin pippel pipenv pip-requirements persp-mode password-generator paradox spinner overseer orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-brain open-junk-file neotree nameless multi-term move-text mmm-mode minitest markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum livid-mode skewer-mode live-py-mode link-hint json-navigator hierarchy json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc indent-guide importmagic epc ctable concurrent deferred impatient-mode simple-httpd hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-xref helm-themes helm-swoop helm-pydoc helm-purpose window-purpose imenu-list helm-projectile helm-mode-manager helm-make helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haml-mode google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pos-tip pos-tip flycheck flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit ghub with-editor evil-lisp-state evil-lion evil-indent-plus evil-iedit-state iedit evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens smartparens paredit evil-args evil-anzu anzu eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav editorconfig dumb-jump diff-hl define-word dactyl-mode cython-mode csv-mode counsel-projectile projectile counsel swiper ivy pkg-info epl company-web web-completion-data company-terraform terraform-mode hcl-mode company-tern dash-functional tern company-statistics company-go go-mode company-anaconda company column-enforce-mode clean-aindent-mode chruby centered-cursor-mode cargo markdown-mode rust-mode bundler inf-ruby browse-at-remote auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed anaconda-mode pythonic f dash s all-the-icons memoize aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core ac-ispell auto-complete popup which-key use-package pcre2el org-plus-contrib hydra font-lock+ exec-path-from-shell evil goto-chg undo-tree diminish bind-map bind-key async))))
+    (treemacs-projectile treemacs-evil treemacs ht pfuture yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toc-org terraform-mode tern tagedit symon string-inflection sql-indent spaceline-all-the-icons solarized-theme smeargle slim-mode shell-pop scss-mode sass-mode rjsx-mode restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file neotree nameless multi-term move-text mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode link-hint json-navigator json-mode js2-refactor js-doc indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md font-lock+ flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav editorconfig dumb-jump diminish diff-hl define-word dactyl-mode cython-mode csv-mode counsel-projectile column-enforce-mode clean-aindent-mode centered-cursor-mode browse-at-remote auto-highlight-symbol auto-dictionary auto-compile anaconda-mode aggressive-indent ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
