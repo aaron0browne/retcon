@@ -2,6 +2,7 @@
 dirs:
   - '~/.gnupg'
   - '~/.vim'
+  - '~/bin'
   - '~/data/aws/s3/chop-dbhi-brownea'
   - '~/data/gcp/storage/syncopation'
 
