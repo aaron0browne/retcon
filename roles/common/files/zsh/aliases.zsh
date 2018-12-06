@@ -32,9 +32,12 @@ fi
 # show me files matching "ls grep"
 alias lsg='ll | grep'
 
+# GNU readlink
+alias readlink='greadlink'
+
 # emacs
 function em() {
-    emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" | grep t
+    emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" | grep t &> /dev/null
     if [ "$?" = "1" ]; then
         emacsclient -c -n -a "" "$@"
     else

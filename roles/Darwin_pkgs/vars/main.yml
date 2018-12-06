@@ -33,6 +33,7 @@ homebrew_cask_apps:
   - 'omnigraffle'
   - 'paintbrush'
   - 'postgres'
+  - 'postman'
   - 'rstudio'
   - 'skitch'              # Graphical annotation
   - 'slack'
@@ -68,12 +69,14 @@ homebrew_installed_packages:
   - 'go'
   - 'gnupg'
   - 'gpg'
+  - 'graphviz'
   - 'grep'
   - 'gzip'
   - 'httpie'              # User-friendly curl replacement
   - 'hub'                 # Add github commands to git
   - 'hugo'                # Static site generator
   - 'jq'                  # JSON parser
+  - 'kubernetes-cli'
   - 'libyaml'
   - 'mcrypt'              # Replacement for old crypt package
   - 'moreutils'           # Extra GNU utilities
@@ -89,7 +92,9 @@ homebrew_installed_packages:
   - 'pwgen'
   - 'pyenv'
   - 'pyenv-virtualenv'
+  - 'r'
   - 'readline'
+  - 'redis'
   - 'ruby'
   - 'sqlite'
   - 'ssh-copy-id'

@@ -32,6 +32,10 @@
     state: 'link'
   loop: '{{ git_dotfiles }}'
 
+- name: 'Install go packages.'
+  command: 'go get -u {{ item }}'
+  loop: '{{ go_pkgs }}'
+
 - name: 'Install pip packages.'
   pip:
     name: '{{ item.name }}'

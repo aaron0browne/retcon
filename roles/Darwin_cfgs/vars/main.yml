@@ -1,6 +1,7 @@
 ---
 symlinks:
   - { path: '~/.zsh/gcp-sdk.zsh', src: '{{ role_path }}/files/zsh/gcp-sdk.zsh' }
+  - { path: '~/.zsh/postgres.zsh', src: '{{ role_path }}/files/zsh/postgres.zsh' }
   - { path: '~/Library/LaunchAgents/gnu.emacs.daemon.plist', src: '{{ role_path }}/files/gnu.emacs.daemon.plist' }
   - { path: '~/bin/browserpass-darwin64', src: '{{ role_path }}/files/browserpass/browserpass-darwin64' }
   - { path: '~/Library/Application Support/Google/Chrome/NativeMessagingHosts/com.dannyvankooten.browserpass.json', src: '{{ role_path }}/files/browserpass/chrome-host.json' }

@@ -4,6 +4,9 @@
   name = "Aaron Browne"
   email = "aaron0browne@gmail.com"
 
+[credential]
+  helper = osxkeychain
+
 [color]
   ui = true
 
@@ -20,7 +23,7 @@
 
 [alias]
   # add
-  a = add                           # add
+  a = add                        # add
   chunks = add --patch           # stage commits chunk by chunk
 
   # via http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
@@ -130,7 +133,7 @@
 
 [core]
   autocrlf = false
-  editor = em
+  editor = emacsclient -c -a "" "$@"
   excludesfile = ~/.gitignore
 
 [advice]
