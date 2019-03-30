@@ -3,7 +3,7 @@ symlinks:
   - { path: '~/.zsh/gcp-sdk.zsh', src: '{{ role_path }}/files/zsh/gcp-sdk.zsh' }
   - { path: '~/.zsh/postgres.zsh', src: '{{ role_path }}/files/zsh/postgres.zsh' }
   - { path: '~/Library/LaunchAgents/gnu.emacs.daemon.plist', src: '{{ role_path }}/files/gnu.emacs.daemon.plist' }
-  - { path: '~/bin/browserpass-darwin64', src: '{{ role_path }}/files/browserpass/browserpass-darwin64' }
+  - { path: '~/bin/browserpass', src: '{{ role_path }}/files/browserpass/browserpass' }
   - { path: '~/Library/Application Support/Google/Chrome/NativeMessagingHosts/com.dannyvankooten.browserpass.json', src: '{{ role_path }}/files/browserpass/chrome-host.json' }
   - { path: '~/Library/Application Support/Google/Chrome/policies/managed/com.dannyvankooten.browserpass.json', src: '{{ role_path }}/files/browserpass/chrome-policy.json' }
 
@@ -68,7 +68,7 @@ osx_defaults:
   # Disable press-and-hold for keys in favor of key repeat
   - { key: 'ApplePressAndHoldEnabled', type: 'bool', value: false }
   # Set a blazingly fast keyboard repeat rate
-  - { key: 'KeyRepeat', type: 'int', value: 1 }
+  - { key: 'KeyRepeat', type: 'string', value: "1" }
   - { key: 'InitialKeyRepeat', type: 'int', value: 10 }
   # Require password immediately after sleep or screen saver begins
   - { domain: 'com.apple.screensaver', key: 'askForPassword', type: 'int', value: 1 }
@@ -187,7 +187,9 @@ osx_defaults:
   # Disable Spotlight indexing for any volume that gets mounted and has not yet
   # been indexed before.
   # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
-  - { domain: '/.Spotlight-V100/VolumeConfiguration', key: 'Exclusions', type: 'array', value: ["/Volumes"], become: 'yes' }
+  # Broken as of Mojave due to SIP
+  # https://www.jamf.com/jamf-nation/discussions/29884/10-14-cannot-modify-spotlight-v100-volumeconfiguration-plist
+  #- { domain: '/.Spotlight-V100/VolumeConfiguration', key: 'Exclusions', type: 'array', value: ["/Volumes"], become: 'yes' }
   # Don’t display the annoying prompt when quitting iTerm
   - { domain: 'com.googlecode.iterm2', key: 'PromptOnQuit', type: 'bool', value: false }
   # Prevent Time Machine from prompting to use new hard drives as backup volume

@@ -33,8 +33,10 @@
   loop: '{{ git_dotfiles }}'
 
 - name: 'Install go packages.'
-  command: 'go get -u {{ item }}'
+  command: 'go install -i {{ item }}'
   loop: '{{ go_pkgs }}'
+  tags:
+    - go
 
 - name: 'Install pip packages.'
   pip:

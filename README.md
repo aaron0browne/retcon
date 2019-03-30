@@ -7,7 +7,7 @@ xcode-select --install
 sudo easy_install pip
 sudo pip install ansible
 ansible-galaxy install geerlingguy.homebrew
-ansible-playbook main.yml -i hosts.ini -K
+ansible-playbook main.yml -i hosts -K
 ```
 
 ### Archlinux

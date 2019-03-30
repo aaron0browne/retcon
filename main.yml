@@ -5,5 +5,7 @@
         name: '{{ ansible_os_family }}_pkgs'
     - include_role:
         name: 'common'
+      tags:
+        - common
     - include_role:
         name: '{{ ansible_os_family }}_cfgs'

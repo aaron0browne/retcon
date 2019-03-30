@@ -34,26 +34,15 @@ dotfiles:
 git_repos:
   - { dest: '~/.emacs.d', repo: 'git@github.com:syl20bnr/spacemacs.git', version: 'develop' }
   - { dest: '~/.vim/bundle/vundle', repo: 'git@github.com:gmarik/vundle.git' }
-  - { dest: '~/.zpresto', repo: 'git@github.com:sorin-ionescu/prezto.git', force: 'yes' }
+  - { dest: '~/.zprezto', repo: 'git@github.com:sorin-ionescu/prezto.git', force: 'yes' }
   - { dest: '~/.fonts', repo: 'git@github.com:powerline/fonts.git' }
-  - { dest: '~/src/github.research.chop.edu/libi/api', repo: 'git@github.research.chop.edu:libi/api.git', ignore_errors: 'yes' }
-  - { dest: '~/src/github.research.chop.edu/libi/client', repo: 'git@github.research.chop.edu:libi/client.git', ignore_errors: 'yes' }
-  - { dest: '~/src/github.research.chop.edu/libi/datasource', repo: 'git@github.research.chop.edu:libi/datasource.git', ignore_errors: 'yes' }
-  - { dest: '~/src/github.research.chop.edu/libi/etl', repo: 'git@github.research.chop.edu:libi/etl.git', ignore_errors: 'yes' }
-  - { dest: '~/src/github.research.chop.edu/libi/eventsource', repo: 'git@github.research.chop.edu:libi/eventsource.git', ignore_errors: 'yes' }
-  - { dest: '~/src/github.research.chop.edu/libi/export', repo: 'git@github.research.chop.edu:libi/export.git', ignore_errors: 'yes' }
-  - { dest: '~/src/github.research.chop.edu/libi/gateway', repo: 'git@github.research.chop.edu:libi/gateway.git', ignore_errors: 'yes' }
-  - { dest: '~/src/github.research.chop.edu/libi/ops', repo: 'git@github.research.chop.edu:libi/ops.git', ignore_errors: 'yes' }
-  - { dest: '~/src/github.research.chop.edu/libi/project', repo: 'git@github.research.chop.edu:libi/project.git', ignore_errors: 'yes' }
-  - { dest: '~/src/github.research.chop.edu/libi/query', repo: 'git@github.research.chop.edu:libi/query.git', ignore_errors: 'yes' }
-  - { dest: '~/src/github.research.chop.edu/libi/views', repo: 'git@github.research.chop.edu:libi/views.git', ignore_errors: 'yes' }
 
 git_dotfiles:
-  - { path: '~/.zlogin', src: '~/.zpresto/runcoms/zlogin' }
-  - { path: '~/.zlogout', src: '~/.zpresto/runcoms/zlogout' }
-  - { path: '~/.zprofile', src: '~/.zpresto/runcoms/zprofile' }
-  - { path: '~/.zshenv', src: '~/.zpresto/runcoms/zshenv' }
-  - { path: '~/.zshrc', src: '~/.zpresto/runcoms/zshrc' }
+  - { path: '~/.zlogin', src: '~/.zprezto/runcoms/zlogin' }
+  - { path: '~/.zlogout', src: '~/.zprezto/runcoms/zlogout' }
+  - { path: '~/.zprofile', src: '~/.zprezto/runcoms/zprofile' }
+  - { path: '~/.zshenv', src: '~/.zprezto/runcoms/zshenv' }
+  - { path: '~/.zshrc', src: '~/.zprezto/runcoms/zshrc' }
 
 go_pkgs:
   - 'github.com/nsf/gocode'

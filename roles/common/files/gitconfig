@@ -3,6 +3,7 @@
 [user]
   name = "Aaron Browne"
   email = "aaron0browne@gmail.com"
+	signingkey = DB8840252809D990
 
 [credential]
   helper = osxkeychain
@@ -149,3 +150,5 @@
   # Remember my merges
   # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
   enabled = true
+[commit]
+	gpgsign = true
