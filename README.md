@@ -10,10 +10,11 @@ ansible-galaxy install geerlingguy.homebrew
 ansible-playbook main.yml -i hosts -K
 ```
 
-- Use System Preferences to remap CapsLock to Escape.
+- Update apps in the AppStore
 - Sync Visual Studio Code settings using the sync extension, the token stored in the password store, and the `26ab34bdf52f9661f4aab3addfd977bb` gist.
-
-- Update brew list
+- Use System Preferences to:
+  - Remap CapsLock to Escape.
+  - Change my avatar.
 
 ### Archlinux
 
