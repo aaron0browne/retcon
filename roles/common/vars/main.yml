@@ -13,7 +13,9 @@ dotfiles:
   - { path: '~/.gitignore', src: '{{ role_path }}/files/gitignore' }
   - { path: '~/.gnupg/gpg.conf', src: '{{ role_path }}/files/gnupg/gpg.conf' }
   - { path: '~/.gnupg/gpg-agent.conf', src: '{{ role_path }}/files/gnupg/gpg-agent.conf' }
+  - { path: '~/.gnupg/sshcontrol', src: '{{ role_path }}/files/gnupg/sshcontrol' }
   - { path: '~/.inputrc', src: '{{ role_path }}/files/inputrc' }
+  - { path: '~/.iterm2', src: '{{ role_path }}/files/iterm2' }
   - { path: '~/.npmrc', src: '{{ role_path }}/files/npmrc' }
   - { path: '~/.spacemacs', src: '{{ role_path }}/files/spacemacs' }
   - { path: '~/.tmux.conf', src: '{{ role_path }}/files/tmux.conf' }

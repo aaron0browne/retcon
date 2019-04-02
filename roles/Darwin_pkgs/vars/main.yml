@@ -13,16 +13,16 @@ homebrew_cask_apps:
   - 'adobe-acrobat-reader'
   - 'balsamiq-mockups'
   - 'citrix-receiver'     # Remote desktop/application
-  - 'docker'
   - 'deluge'              # Torrent client
+  - 'docker'
   - 'dropbox'
   - 'emacs'
   - 'evernote'
   - 'firefox'
   - 'flux'                # Screen temperature adjustment
+  - 'google-backup-and-sync'
   - 'google-chrome'
   - 'google-cloud-sdk'
-  - 'google-backup-and-sync'
   - 'istat-menus'
   - 'iterm2'
   - 'java'
@@ -30,6 +30,7 @@ homebrew_cask_apps:
   - 'licecap'             # Animated screen capture
   - 'limechat'            # IRC client
   - 'macvim'
+  - 'minikube'
   - 'omnigraffle'
   - 'paintbrush'
   - 'postgres'
@@ -38,6 +39,7 @@ homebrew_cask_apps:
   - 'skitch'              # Graphical annotation
   - 'slack'
   - 'spectacle'           # Window management
+  - 'spotify'
   - 'sqlpro-for-postgres' # Postgres GUI
   - 'vagrant'
   - 'virtualbox'
@@ -52,13 +54,15 @@ homebrew_installed_packages:
   - 'awk'
   - 'awscli'
   - 'caddy'               # Web server
-  - 'ctags'               # Creates index/tag files from source code
   - 'coreutils'           # Updated GNU core utilities
   - 'cscope'              # Indexing and search for C/C++ source code
+  - 'ctags'               # Creates index/tag files from source code
   - 'dep'
   - 'dockutil'            # Manages OSX dock
+  - 'exiftool'
   - 'fasd'
   - 'findutils'           # File finding utilities
+  - 'gcc'
   - 'gettext'             # Internationalization
   - 'git'
   - 'git-lfs'
@@ -66,8 +70,8 @@ homebrew_installed_packages:
     install_options: '--with-pygments --with-ctags'
   - name: 'gnu-sed'
     install_options: '--with-default-names'
-  - 'go'
   - 'gnupg'
+  - 'go'
   - 'gpg'
   - 'graphviz'
   - 'grep'
@@ -93,6 +97,7 @@ homebrew_installed_packages:
   - 'pyenv'
   - 'pyenv-virtualenv'
   - 'r'
+  - 'rbenv'
   - 'readline'
   - 'redis'
   - 'ruby'
@@ -100,9 +105,11 @@ homebrew_installed_packages:
   - 'ssh-copy-id'
   - 'terraform'
   - 'tmux'
+  - 'tree'
   - 'vcsh'
   - name: 'vim'
     install_options: '--with-override-system-vi --with-python3'
   - name: 'wget'
     install_options: '--with-iri'
+  - 'yarn'
   - 'zsh'
