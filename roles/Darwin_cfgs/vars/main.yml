@@ -231,16 +231,16 @@ plist_entries:
   - { key: ':FK_StandardViewSettings:IconViewSettings:showItemInfo', type: 'bool', value: 'true', plist: '~/Library/Preferences/com.apple.finder.plist' }
   - { key: ':StandardViewSettings:IconViewSettings:showItemInfo', type: 'bool', value: 'true', plist: '~/Library/Preferences/com.apple.finder.plist' }
   # Show item info to the right of the icons on the desktop
-  - { key: ':DesktopViewSettings:IconViewSettings:labelOnBottom', type: 'bool', value: 'false', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  - { key: ':DesktopViewSettings:IconViewSettings:labelOnBottom', type: 'bool', value: 'true', plist: '~/Library/Preferences/com.apple.finder.plist' }
   # Enable snap-to-grid for icons on the desktop and in other icon views
   - { key: ':DesktopViewSettings:IconViewSettings:arrangeBy', type: 'string', value: 'grid', plist: '~/Library/Preferences/com.apple.finder.plist' }
   - { key: ':FK_StandardViewSettings:IconViewSettings:arrangeBy', type: 'string', value: 'grid', plist: '~/Library/Preferences/com.apple.finder.plist' }
   - { key: ':StandardViewSettings:IconViewSettings:arrangeBy', type: 'string', value: 'grid', plist: '~/Library/Preferences/com.apple.finder.plist' }
   # Increase grid spacing for icons on the desktop and in other icon views
-  - { key: ':DesktopViewSettings:IconViewSettings:gridSpacing', type: 'integer', value: '100', plist: '~/Library/Preferences/com.apple.finder.plist' }
-  - { key: ':FK_StandardViewSettings:IconViewSettings:gridSpacing', type: 'integer', value: '100', plist: '~/Library/Preferences/com.apple.finder.plist' }
-  - { key: ':StandardViewSettings:IconViewSettings:gridSpacing', type: 'integer', value: '100', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  - { key: ':DesktopViewSettings:IconViewSettings:gridSpacing', type: 'integer', value: '50', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  - { key: ':FK_StandardViewSettings:IconViewSettings:gridSpacing', type: 'integer', value: '50', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  - { key: ':StandardViewSettings:IconViewSettings:gridSpacing', type: 'integer', value: '50', plist: '~/Library/Preferences/com.apple.finder.plist' }
   # Increase the size of icons on the desktop and in other icon views
-  - { key: ':DesktopViewSettings:IconViewSettings:iconSize', type: 'integer', value: '80', plist: '~/Library/Preferences/com.apple.finder.plist' }
-  - { key: ':FK_StandardViewSettings:IconViewSettings:iconSize', type: 'integer', value: '80', plist: '~/Library/Preferences/com.apple.finder.plist' }
-  - { key: ':StandardViewSettings:IconViewSettings:iconSize', type: 'integer', value: '80', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  - { key: ':DesktopViewSettings:IconViewSettings:iconSize', type: 'integer', value: '40', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  - { key: ':FK_StandardViewSettings:IconViewSettings:iconSize', type: 'integer', value: '40', plist: '~/Library/Preferences/com.apple.finder.plist' }
+  - { key: ':StandardViewSettings:IconViewSettings:iconSize', type: 'integer', value: '40', plist: '~/Library/Preferences/com.apple.finder.plist' }
