@@ -66,10 +66,8 @@ homebrew_installed_packages:
   - 'gettext'             # Internationalization
   - 'git'
   - 'git-lfs'
-  - name: 'global'        # GNU index/tag file creation from source code
-    install_options: '--with-pygments --with-ctags'
-  - name: 'gnu-sed'
-    install_options: '--with-default-names'
+  - 'global'              # GNU index/tag file creation from source code
+  - 'gnu-sed'
   - 'gnupg'
   - 'go'
   - 'gpg'
@@ -107,9 +105,7 @@ homebrew_installed_packages:
   - 'tmux'
   - 'tree'
   - 'vcsh'
-  - name: 'vim'
-    install_options: '--with-override-system-vi --with-python3'
-  - name: 'wget'
-    install_options: '--with-iri'
+  - 'vim'
+  - 'wget'
   - 'yarn'
   - 'zsh'

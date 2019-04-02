@@ -1,7 +1,7 @@
 {
   "name": "com.dannyvankooten.browserpass",
   "description": "Browserpass binary for the Chrome extension",
-  "path": "/Users/brownea/bin/browserpass",
+  "path": "/Users/aaron0browne/bin/browserpass",
   "type": "stdio",
   "allowed_origins": [
     "chrome-extension://naepdomgkenhinolocfifgehidddafch/",

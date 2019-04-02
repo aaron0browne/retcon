@@ -3,7 +3,7 @@ dirs:
   - '~/.gnupg'
   - '~/.vim'
   - '~/bin'
-  - '~/data/aws/s3/chop-dbhi-brownea'
+  - '~/data/aws/s3/chop-dbhi-aaron0browne'
   - '~/data/gcp/storage/syncopation'
 
 dotfiles:
@@ -34,10 +34,10 @@ dotfiles:
   - { path: '~/.zpreztorc', src: '{{ role_path }}/files/zpreztorc' }
 
 git_repos:
-  - { dest: '~/.emacs.d', repo: 'git@github.com:syl20bnr/spacemacs.git', version: 'develop' }
-  - { dest: '~/.vim/bundle/vundle', repo: 'git@github.com:gmarik/vundle.git' }
-  - { dest: '~/.zprezto', repo: 'git@github.com:sorin-ionescu/prezto.git', force: 'yes' }
-  - { dest: '~/.fonts', repo: 'git@github.com:powerline/fonts.git' }
+  - { dest: '~/.emacs.d', repo: 'https://github.com/syl20bnr/spacemacs.git', version: 'develop' }
+  - { dest: '~/.vim/bundle/vundle', repo: 'https://github.com/gmarik/vundle.git' }
+  - { dest: '~/.zprezto', repo: 'https://github.com/sorin-ionescu/prezto.git', force: 'yes' }
+  - { dest: '~/.fonts', repo: 'https://github.com/powerline/fonts.git' }
 
 git_dotfiles:
   - { path: '~/.zlogin', src: '~/.zprezto/runcoms/zlogin' }
@@ -61,4 +61,4 @@ aws_s3_syncs:
   - { src: 's3://chop-dbhi-brownea', dest: '~/data/aws/s3/chop-dbhi-brownea', profile: 'saml', ignore_errors: 'yes' }
 
 gcp_storage_syncs:
-  - { src: 'gs://syncopation', dest: '~/data/gcp/storage/syncopation' }
+  - { src: 'gs://syncopation', dest: '~/data/gcp/storage/syncopation', ignore_errors: 'yes' }

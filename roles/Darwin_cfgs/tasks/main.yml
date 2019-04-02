@@ -1,4 +1,10 @@
 ---
+- name: 'Create directories.'
+  file:
+    path: '{{ item }}'
+    state: 'directory'
+  loop: '{{ dirs }}'
+
 - name: 'Place symlinks.'
   file:
     path: '{{ item.path }}'

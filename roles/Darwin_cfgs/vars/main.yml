@@ -1,4 +1,7 @@
 ---
+dirs:
+  - '~/Library/Application Support/Google/Chrome/policies/managed'
+
 symlinks:
   - { path: '~/.zsh/gcp-sdk.zsh', src: '{{ role_path }}/files/zsh/gcp-sdk.zsh' }
   - { path: '~/.zsh/postgres.zsh', src: '{{ role_path }}/files/zsh/postgres.zsh' }
@@ -9,7 +12,7 @@ symlinks:
 
 osx_defaults:
   # Disable transparency in the menu bar and elsewhere in Yosemite.
-  - { domain: 'com.apple.universalaccess', key: 'reduceTransparency', type: 'bool', value: true }
+  - { domain: 'com.apple.universalaccess', key: 'reduceTransparency', type: 'bool', value: true, become: true }
   # Set sidebar icon size to medium.
   - { key: 'NSTableViewDefaultSizeMode', type: 'int', value: 2 }
   # Disable over-the-top focus ring animation.
@@ -61,10 +64,10 @@ osx_defaults:
   # Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs).
   - { key: 'AppleKeyboardUIMode', type: 'int', value: 3 }
   # Use scroll gesture with the Ctrl (^) modifier key to zoom
-  - { domain: 'com.apple.universalaccess', key: 'closeViewScrollWheelToggle', type: 'bool', value: true }
-  - { domain: 'com.apple.universalaccess', key: 'HIDScrollZoomModifierMask', type: 'int', value: 262144 }
+  - { domain: 'com.apple.universalaccess', key: 'closeViewScrollWheelToggle', type: 'bool', value: true, become: true }
+  - { domain: 'com.apple.universalaccess', key: 'HIDScrollZoomModifierMask', type: 'int', value: 262144, become: true }
   # Follow the keyboard focus while zoomed in
-  - { domain: 'com.apple.universalaccess', key: 'closeViewZoomFollowsFocus', type: 'bool', value: true }
+  - { domain: 'com.apple.universalaccess', key: 'closeViewZoomFollowsFocus', type: 'bool', value: true, become: true }
   # Disable press-and-hold for keys in favor of key repeat
   - { key: 'ApplePressAndHoldEnabled', type: 'bool', value: false }
   # Set a blazingly fast keyboard repeat rate

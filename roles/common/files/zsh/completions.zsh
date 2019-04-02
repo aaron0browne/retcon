@@ -1,5 +1,5 @@
 # The following lines were added by compinstall
-zstyle :compinstall filename '/Users/brownea/.zsh/completions.zsh'
+zstyle :compinstall filename '/Users/aaron0browne/.zsh/completions.zsh'
 
 autoload -Uz compinit
 compinit
