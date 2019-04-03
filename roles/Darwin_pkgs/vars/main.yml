@@ -107,6 +107,7 @@ homebrew_installed_packages:
   - 'tree'
   - 'vcsh'
   - 'vim'
+  - 'watchman'
   - 'wget'
   - 'yarn'
   - 'zsh'

@@ -47,12 +47,15 @@ git_dotfiles:
   - { path: '~/.zshrc', src: '~/.zprezto/runcoms/zshrc' }
 
 go_pkgs:
+  - 'github.com/nats-io/gnatsd'
   - 'github.com/nsf/gocode'
   - 'github.com/rogpeppe/godef'
+  - 'github.com/sqs/goreturns'
+  - 'github.com/stamblerre/gocode'
+  - 'github.com/uudashr/gopkgs'
   - 'golang.org/x/tools/cmd/guru'
   - 'golang.org/x/tools/cmd/gorename'
   - 'golang.org/x/tools/cmd/goimports'
-  - 'github.com/nats-io/gnatsd'
 
 pip_pkgs:
   - { name: 'git+ssh://git@github.research.chop.edu/devops/aws-auth-cli.git', ignore_errors: 'yes' }
