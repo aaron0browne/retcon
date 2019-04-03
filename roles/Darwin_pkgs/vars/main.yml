@@ -41,6 +41,7 @@ homebrew_cask_apps:
   - 'spectacle'           # Window management
   - 'spotify'
   - 'sqlpro-for-postgres' # Postgres GUI
+  - 'timing'              # Time tracking
   - 'vagrant'
   - 'virtualbox'
   - 'visual-studio-code'
