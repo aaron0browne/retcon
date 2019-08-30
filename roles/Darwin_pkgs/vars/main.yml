@@ -11,13 +11,14 @@ homebrew_taps:
 
 homebrew_cask_apps:
   - 'adobe-acrobat-reader'
+  - 'adobe-creative-cloud'
   - 'balsamiq-mockups'
-  - 'citrix-receiver'     # Remote desktop/application
   - 'deluge'              # Torrent client
   - 'docker'
   - 'dropbox'
   - 'emacs'
   - 'evernote'
+  - 'expressvpn'
   - 'firefox'
   - 'flux'                # Screen temperature adjustment
   - 'google-backup-and-sync'
@@ -28,7 +29,6 @@ homebrew_cask_apps:
   - 'java'
   - 'keybase'
   - 'licecap'             # Animated screen capture
-  - 'limechat'            # IRC client
   - 'macvim'
   - 'minikube'
   - 'omnigraffle'
@@ -36,7 +36,10 @@ homebrew_cask_apps:
   - 'postgres'
   - 'postman'
   - 'rstudio'
+  - 'scrivener'           # Manuscript writing
+  - 'signal'
   - 'skitch'              # Graphical annotation
+  - 'skype'
   - 'slack'
   - 'spectacle'           # Window management
   - 'spotify'
@@ -106,7 +109,6 @@ homebrew_installed_packages:
   - 'tmux'
   - 'tree'
   - 'vcsh'
-  - 'vim'
   - 'watchman'
   - 'wget'
   - 'yarn'

@@ -32,18 +32,6 @@
     state: 'link'
   loop: '{{ git_dotfiles }}'
 
-- name: 'Install go packages.'
-  command: 'GO111MODULE=off go install -i {{ item }}'
-  loop: '{{ go_pkgs }}'
-  tags:
-    - go
-
-- name: 'Install pip packages.'
-  pip:
-    name: '{{ item.name }}'
-  ignore_errors: '{{ item.ignore_errors | default(omit) }}'
-  loop: '{{ pip_pkgs }}'
-
 - name: "Modify zshrc to load zsh extensions."
   lineinfile:
     path: '~/.zshrc'
@@ -59,6 +47,18 @@
 
 - name: 'Set zsh as default shell.'
   command: 'chsh -s /usr/local/bin/zsh'
+
+- name: 'Install go packages.'
+  shell: 'GO111MODULE=off go get {{ item }}'
+  args:
+    executable: '/usr/local/bin/zsh'
+  loop: '{{ go_pkgs }}'
+
+- name: 'Install pip packages.'
+  pip:
+    name: '{{ item.name }}'
+  ignore_errors: '{{ item.ignore_errors | default(omit) }}'
+  loop: '{{ pip_pkgs }}'
 
 - name: 'Update vim packages.'
   command: 'vim --noplugin -u ~/.vim/vundles.vim -N "+set hidden" "+syntax on" +BundleClean! +BundleInstall! +qall'

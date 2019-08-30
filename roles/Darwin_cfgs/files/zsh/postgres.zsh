@@ -1,1 +1,4 @@
-export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
+path=(
+  $path
+  /Applications/Postgres.app/Contents/Versions/latest/bin
+)

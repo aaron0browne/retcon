@@ -3,7 +3,7 @@ dirs:
   - '~/.gnupg'
   - '~/.vim'
   - '~/bin'
-  - '~/data/aws/s3/chop-dbhi-aaron0browne'
+  - '~/data/aws/s3/chop-dbhi-brownea'
   - '~/data/gcp/storage/syncopation'
 
 dotfiles:
@@ -32,6 +32,8 @@ dotfiles:
   - { path: '~/.zsh.before', src: '{{ role_path }}/files/zsh.before' }
   - { path: '~/.zsh.prompts', src: '{{ role_path }}/files/zsh.prompts' }
   - { path: '~/.zpreztorc', src: '{{ role_path }}/files/zpreztorc' }
+  - { path: '~/.zshrc', src: '{{ role_path }}/files/zshrc' }
+  - { path: '~/.zshenv', src: '{{ role_path }}/files/zshenv' }
 
 git_repos:
   - { dest: '~/.emacs.d', repo: 'https://github.com/syl20bnr/spacemacs.git', version: 'develop' }
@@ -43,8 +45,6 @@ git_dotfiles:
   - { path: '~/.zlogin', src: '~/.zprezto/runcoms/zlogin' }
   - { path: '~/.zlogout', src: '~/.zprezto/runcoms/zlogout' }
   - { path: '~/.zprofile', src: '~/.zprezto/runcoms/zprofile' }
-  - { path: '~/.zshenv', src: '~/.zprezto/runcoms/zshenv' }
-  - { path: '~/.zshrc', src: '~/.zprezto/runcoms/zshrc' }
 
 go_pkgs:
   - 'github.com/nats-io/gnatsd'
