@@ -22,9 +22,22 @@ ansible-playbook main.yml -i hosts -K
   - Change my avatar.
   - Configure Spectacle, Flux, iTerm to start on login.
 
+## Ubuntu 18.04
+
+```bash
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install python3-pip
+sudo pip3 install ansible
+ansible-playbook main.yml -i hosts -K
+```
+
 ## Archlinux
+
+This implementation is not quite complete.
 
 ```bash
 pacman -S ansible
-ansible-playbook main.yml -i hosts.ini -K --extra-vars "ansible_python_interpreter=/usr/bin/python2"
+ansible-playbook main.yml -i hosts -K --extra-vars "ansible_python_interpreter=/usr/bin/python2"
 ```
+

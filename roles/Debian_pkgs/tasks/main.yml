@@ -1,0 +1,56 @@
+---
+- name: 'Install apt repository keys.'
+  apt_key:
+    state: 'present'
+    id: '{{ item.id }}'
+    url: '{{ item.url }}'
+  loop: '{{ apt_keys }}'
+  become: 'yes'
+
+- name: 'Install apt repositories.'
+  apt_repository:
+    state: 'present'
+    repo: '{{ item }}'
+  loop: '{{ apt_repos }}'
+  become: 'yes'
+
+- name: 'Install packages.'
+  apt:
+    state: 'latest'
+    autoclean: 'yes'
+    update_cache: 'yes'
+    cache_valid_time: '3600'
+    install_recommends: 'yes'
+    pkg: '{{ item }}'
+  loop: '{{ pkgs }}'
+  become: 'yes'
+
+- name: 'Create directories.'
+  file:
+    path: '{{ item }}'
+    state: 'directory'
+    mode: '755'
+  loop: '{{ dirs }}'
+
+- name: 'Download directly available packages.'
+  get_url:
+    url: '{{ item.url }}'
+    dest: '{{ item.dest }}'
+    mode: '{{ item.mode | default(omit) }}'
+    checksum: '{{ item.checksum | default(omit) }}'
+  loop: '{{ downloads }}'
+
+- name: 'Unarchive directly available packages.'
+  unarchive:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    mode: '755'
+    remote_src: 'yes'
+  loop: '{{ archives }}'
+  become: '{{ item.become | default(omit) }}'
+
+- name: 'Run package installation scripts.'
+  shell:
+    cmd: '{{ item.cmd }}'
+    creates: '{{ item.creates | default(omit) }}'
+  loop: '{{ scripts }}'

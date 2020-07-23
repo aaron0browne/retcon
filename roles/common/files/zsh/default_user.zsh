@@ -1,1 +1,1 @@
-DEFAULT_USER='aaron0browne'
+DEFAULT_USER=$user

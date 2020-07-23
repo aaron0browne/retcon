@@ -1,9 +1,9 @@
 # set your user tokens as environment variables, such as ~/.secrets
 # See the README for examples.
 [user]
-  name = "Aaron Browne"
-  email = "aaron0browne@gmail.com"
-  signingkey = DB8840252809D990
+  name = "Aerin Blue"
+  email = "aerin.blue@esentire.com"
+  signingkey = 1BCDE4C99763B25F
 
 [credential]
   helper = osxkeychain
@@ -134,7 +134,7 @@
 
 [core]
   autocrlf = false
-  editor = code -nw "$@"
+  editor = vi "$@"
   excludesfile = ~/.gitignore
 
 [advice]
@@ -150,5 +150,6 @@
   # Remember my merges
   # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
   enabled = true
+
 [commit]
-	gpgsign = true
+  gpgsign = true

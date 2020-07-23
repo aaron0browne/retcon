@@ -1,0 +1,99 @@
+---
+apt_keys:
+  - { id: '9DC858229FC7DD38854AE2D88D81803C0EBFCD88', url: 'https://download.docker.com/linux/ubuntu/gpg' }
+
+apt_repos:
+  - 'deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable'
+
+pkgs:
+  - 'ack'
+  - 'aspell'
+  - 'autoconf'            # Configuration script builder
+  - 'awscli'
+  - 'build-essential'
+  - 'containerd.io'
+  - 'coreutils'           # Updated GNU core utilities
+  - 'cscope'              # Indexing and search for C/C++ source code
+  - 'curl'
+  - 'default-jdk'
+  - 'docker-ce'
+  - 'docker-ce-cli'
+  - 'emacs'
+  - 'exuberant-ctags'     # Creates index/tag files from source code
+  - 'fasd'
+  - 'findutils'           # File finding utilities
+  - 'gawk'
+  - 'gcc'
+  - 'gettext'             # Internationalization
+  - 'git'
+  - 'git-hub'             # Add github commands to git
+  - 'git-lfs'
+  - 'global'              # GNU index/tag file creation from source code
+  - 'gnupg'
+  - 'golang'
+  - 'gpg'
+  - 'gpg-agent'
+  - 'graphviz'
+  - 'grep'
+  - 'gzip'
+  - 'httpie'              # User-friendly curl replacement
+  - 'hugo'                # Static site generator
+  - 'jq'                  # JSON parser
+  - 'libbz2-dev'
+  - 'libffi-dev'
+  - 'libimage-exiftool-perl'
+  - 'liblzma-dev'
+  - 'libncurses5-dev'
+  - 'libncursesw5-dev'
+  - 'libreadline-dev'
+  - 'libsqlite3-dev'
+  - 'libssl-dev'
+  - 'libyaml-dev'
+  - 'llvm'
+  - 'mcrypt'              # Replacement for old crypt package
+  - 'moreutils'           # Extra GNU utilities
+  - 'myrepos'             # Multiple repos
+  - 'nmap'                # Port scanning
+  - 'nodejs'
+  - 'openssh-client'
+  - 'openssh-server'
+  - 'packer'
+  - 'pandoc'              # Document conversion
+  - 'pass'
+  - 'postgresql'
+  - 'protobuf-compiler'
+  - 'pwgen'
+  - 'python-openssl'
+  - 'r-recommended'
+  - 'readline-common'
+  - 'redis'
+  - 'ruby'
+  - 'sed'
+  - 'sqlite3'
+  - 'tk-dev'
+  - 'tmux'
+  - 'tree'
+  - 'vagrant'
+  - 'vcsh'
+  - 'virtualbox'
+  - 'wget'
+  - 'xz-utils'
+  - 'zlib1g-dev'
+  - 'zsh'
+
+dirs:
+  - '$HOME/downloads'
+
+downloads:
+  - { url: 'https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh', dest: '$HOME/downloads/nvm-installer', mode: '755' }
+  - { url: 'https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer', dest: '$HOME/downloads/pyenv-installer', mode: '755' }
+  - { url: 'https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer', dest: '$HOME/downloads/rbenv-installer', mode: '755' }
+  - { url: 'https://releases.hashicorp.com/terraform/0.12.25/terraform_0.12.25_linux_amd64.zip', dest: '/tmp/terraform.zip', checksum: 'sha256:e95daabd1985329f87e6d40ffe7b9b973ff0abc07a403f767e8658d64d733fb0'}
+
+archives:
+  - { src: '/tmp/terraform.zip', dest: '/usr/bin', become: 'yes' }
+
+scripts:
+  - { cmd: '$HOME/downloads/nvm-installer', creates: '$HOME/.nvm' }
+  - { cmd: '$HOME/downloads/pyenv-installer', creates: '$HOME/.pyenv' }
+  - { cmd: '$HOME/downloads/rbenv-installer' }

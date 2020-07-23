@@ -43,16 +43,31 @@
     path: '/private/etc/shells'
     line: '/usr/local/bin/zsh'
     state: 'present'
-  become: 'yes'
+    become: 'yes'
+  when: ansible_os_family == 'Darwin'
 
 - name: 'Set zsh as default shell.'
   command: 'chsh -s /usr/local/bin/zsh'
+  when: ansible_os_family == 'Darwin'
+
+- name: 'Set zsh as default shell.'
+  command: 'chsh -s /usr/bin/zsh'
+  become: 'yes'
+  when: ansible_os_family == 'Debian'
 
 - name: 'Install go packages.'
   shell: 'GO111MODULE=off go get {{ item }}'
   args:
     executable: '/usr/local/bin/zsh'
   loop: '{{ go_pkgs }}'
+  when: ansible_os_family == 'Darwin'
+
+- name: 'Install go packages.'
+  shell: 'go get {{ item }}'
+  args:
+    executable: '/usr/bin/zsh'
+  loop: '{{ go_pkgs }}'
+  when: ansible_os_family == 'Debian'
 
 - name: 'Install pip packages.'
   pip:

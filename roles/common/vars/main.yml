@@ -47,13 +47,10 @@ git_dotfiles:
   - { path: '~/.zprofile', src: '~/.zprezto/runcoms/zprofile' }
 
 go_pkgs:
-  - 'github.com/nats-io/gnatsd'
   - 'github.com/nsf/gocode'
   - 'github.com/rogpeppe/godef'
   - 'github.com/sqs/goreturns'
   - 'github.com/stamblerre/gocode'
-  - 'github.com/uudashr/gopkgs'
-  - 'golang.org/x/tools/cmd/guru'
   - 'golang.org/x/tools/cmd/gorename'
   - 'golang.org/x/tools/cmd/goimports'
 

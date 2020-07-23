@@ -1,0 +1,7 @@
+---
+- name: 'Add user to groups.'
+  user:
+    name: '{{ ansible_user }}'
+    groups: '{{ user_groups }}'
+    append: 'yes'
+  become: 'yes'
