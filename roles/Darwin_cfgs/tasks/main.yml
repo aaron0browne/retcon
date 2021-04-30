@@ -27,7 +27,7 @@
 
 - name: 'Show system folders.'
   command: 'chflags nohidden {{ item }}'
-  become: 'yes'
+  become: yes
   loop:
     - '~/Library'
     - '/Volumes'
@@ -64,6 +64,7 @@
     state: '{{ item.state | default("present") }}'
   become: '{{ item.become | default(omit) }}'
   loop: '{{ osx_defaults }}'
+  ignore_errors: '{{ item.ignore_errors | default(omit) }}'
 
 - name: 'Delete plist entries.'
   command: '/usr/libexec/PlistBuddy -c "Delete {{ item.key }}" {{ item.plist }}'

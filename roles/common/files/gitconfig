@@ -1,12 +1,12 @@
 # set your user tokens as environment variables, such as ~/.secrets
 # See the README for examples.
 [user]
-  name = "Aaron Browne"
-  email = "aaron0browne@gmail.com"
-  signingkey = DB8840252809D990
+  name = "Aerin Blue"
+  email = "aerin.blue@esentire.com"
+  signingkey = F006F18FFE18EB7C
 
 [credential]
-  helper = osxkeychain
+  #helper = osxkeychain
 
 [color]
   ui = true
@@ -80,6 +80,7 @@
 
   # remote
   r = remote -v                     # show remotes (verbose)
+  rp = remote prune origin          # prune deleted branches from remote
 
   # reset
   unstage = reset HEAD              # remove files from index (tracking)
@@ -108,6 +109,8 @@
 
 [format]
   pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
+  # Added signoff lines to commits by default.
+  signOff = true
 
 [mergetool]
   prompt = false
@@ -150,5 +153,7 @@
   # Remember my merges
   # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
   enabled = true
+
 [commit]
-	gpgsign = true
+  # Sign commits by default
+	#gpgsign = true

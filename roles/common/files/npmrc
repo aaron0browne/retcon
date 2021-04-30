@@ -1,2 +1,4 @@
 git-tag-version=false
 allow-same-version=false
+registry=https://artifactory.eng.esentire.com/artifactory/api/npm/npm/
+@esentire:registry=https://artifactory.eng.esentire.com/artifactory/api/npm/npm/

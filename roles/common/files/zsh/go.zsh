@@ -1,4 +1,4 @@
-export GOPATH=/Users/aaron0browne
+export GOPATH=$HOME
 export GO111MODULE=on
 path=(
   $path

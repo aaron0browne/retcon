@@ -1,5 +1,6 @@
 ---
 homebrew_upgrade_all_packages: yes
+homebrew_cask_accept_external_apps: true
 
 homebrew_taps:
   - 'homebrew/core'
@@ -30,7 +31,6 @@ homebrew_cask_apps:
   - 'keybase'
   - 'licecap'             # Animated screen capture
   - 'macvim'
-  - 'minikube'
   - 'omnigraffle'
   - 'paintbrush'
   - 'postgres'
@@ -85,6 +85,7 @@ homebrew_installed_packages:
   - 'kubernetes-cli'
   - 'libyaml'
   - 'mcrypt'              # Replacement for old crypt package
+  - 'minikube'
   - 'moreutils'           # Extra GNU utilities
   - 'mr'                  # Multiple repos
   - 'nmap'                # Port scanning
@@ -94,6 +95,7 @@ homebrew_installed_packages:
   - 'pandoc'              # Document conversion
   - 'pass'
   - 'pinentry-mac'
+  - 'pipenv'              # Python dev environments
   - 'protobuf'
   - 'pwgen'
   - 'pyenv'
