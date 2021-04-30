@@ -3,7 +3,6 @@
 [user]
   name = "Aerin Blue"
   email = "aerin.blue@esentire.com"
-  signingkey = F006F18FFE18EB7C
 
 [credential]
   #helper = osxkeychain
@@ -115,14 +114,14 @@
 [mergetool]
   prompt = false
 
-[mergetool "mvimdiff"]
-  cmd="mvim -c 'Gdiff' $MERGED"     # use fugitive.vim for 3-way merge
-  keepbackup=false
+[mergetool "vscode"]
+  cmd = code --new-window --wait "$MERGED"
+  keepbackup = false
 
 [merge]
   summary = true
   verbosity = 1
-  tool = mvimdiff
+  tool = vscode
 
 [apply]
   whitespace = nowarn
@@ -137,7 +136,7 @@
 
 [core]
   autocrlf = false
-  editor = code -nw "$@"
+  editor = code --new-window --wait "$@"
   excludesfile = ~/.gitignore
 
 [advice]
@@ -148,6 +147,11 @@
   # instead of a/b/c/d as prefixes for patches
   mnemonicprefix = true
   algorithm = patience
+  tool = vscode
+
+[difftool "vscode"]
+  cmd = code --new-window --wait --diff "$LOCAL" "$REMOTE"
+  keepbackup = false
 
 [rerere]
   # Remember my merges
